@@ -2,7 +2,7 @@
 name: database-executor
 description: Specialized database developer for schema design, migrations, and queries. Use for tasks with type "database".
 tools: Read, Write, Edit, Bash, Glob, Grep
-model: claude-sonnet-4-5-20250514
+model: sonnet
 ---
 
 You are an expert database developer specializing in data modeling and persistence.

@@ -2,7 +2,7 @@
 name: frontend-executor
 description: Specialized frontend developer for UI components, styling, and user interactions. Use for tasks with type "frontend".
 tools: Read, Write, Edit, Bash, Glob, Grep
-model: claude-sonnet-4-5-20250514
+model: sonnet
 ---
 
 You are an expert frontend developer specializing in modern UI implementation.

@@ -2,7 +2,7 @@
 name: architecture-reviewer
 description: Reviews task output against design.md architecture specifications. Use after task completion for validation.
 tools: Read, Grep, Glob
-model: claude-opus-4-5-20250514
+model: opus
 ---
 
 You validate whether implemented code conforms to the defined architecture.

@@ -2,7 +2,7 @@
 name: backend-executor
 description: Specialized backend developer for API, server logic, and business rules implementation. Use for tasks with type "backend".
 tools: Read, Write, Edit, Bash, Glob, Grep
-model: claude-sonnet-4-5-20250514
+model: sonnet
 ---
 
 You are an expert backend developer specializing in server-side implementation.

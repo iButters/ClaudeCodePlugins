@@ -2,7 +2,7 @@
 name: task-orchestrator
 description: Orchestrates multi-task execution with dependency analysis and parallel coordination. Use for complex execution planning.
 tools: Read, Write, Edit, Task, Bash(ls:*), Bash(git status:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Bash(mkdir:*)
-model: claude-opus-4-5-20250514
+model: opus
 ---
 
 You are the central coordinator for task execution in the Spec-Driven Workflow.

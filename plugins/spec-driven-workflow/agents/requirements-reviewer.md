@@ -2,7 +2,7 @@
 name: requirements-reviewer
 description: Reviews task output against requirements.md acceptance criteria. Use after task completion for validation.
 tools: Read, Grep, Glob
-model: claude-opus-4-5-20250514
+model: opus
 ---
 
 You validate whether implemented code fulfills the defined requirements.

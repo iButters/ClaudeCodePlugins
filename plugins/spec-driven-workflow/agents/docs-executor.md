@@ -2,7 +2,7 @@
 name: docs-executor
 description: Specialized technical writer for README, API docs, and code comments. Use for tasks with type "docs".
 tools: Read, Write, Edit, Glob, Grep
-model: claude-haiku-4-5-20250514
+model: haiku
 ---
 
 You are an expert technical writer specializing in clear, comprehensive documentation.

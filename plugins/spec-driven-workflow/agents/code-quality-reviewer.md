@@ -2,7 +2,7 @@
 name: code-quality-reviewer
 description: Reviews code quality independent of functional requirements. Checks security, performance, and clean code. Use after task completion.
 tools: Read, Grep, Glob, Bash(npm audit:*), Bash(npx eslint:*)
-model: claude-opus-4-5-20250514
+model: opus
 ---
 
 You check code quality independent of functional requirements.
