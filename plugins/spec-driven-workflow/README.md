@@ -1,8 +1,32 @@
-# Spec-Driven Workflow Plugin v2.1.0
+# Spec-Driven Workflow Plugin v2.2.0
 
 Ein vollständiges Claude Code Plugin für spezifikationsgetriebene Softwareentwicklung.
 
-## Was ist neu in v2.1?
+## Was ist neu in v2.2?
+
+### Git-Integration
+- `--git` Flag bei `/spec-execute` für automatische Commits nach Wave-Completion
+- `--git-push` Flag für Commit + Push
+- Strukturierte Commit-Messages mit Task-Übersicht
+
+### Wave Reports
+- Automatische Report-Generierung nach jeder Wave
+- Reports in `.specs/[project]/reports/wave-N-report.md`
+- Enthält Tasks, Files, Review-Ergebnisse
+
+### Bug Tracking mit EARS
+- `/spec-bug` - Bugs mit EARS "Unwanted Behavior" Pattern melden
+- `/spec-bugs` - Alle Bugs auflisten
+- `/spec-bug-wave` - Bug-Fix Wave aus offenen Bugs erstellen
+- Eigene `wave-bugfix-N.md` Dateien für Bug-Fixes
+
+### Feature Management mit EARS
+- `/spec-feature` - Feature Requests mit allen EARS Patterns
+- `/spec-features` - Feature Backlog anzeigen
+- `/spec-feature-to-tasks` - Feature in Tasks/Waves konvertieren
+- Traceability zwischen Features und Tasks
+
+## Was war neu in v2.1?
 
 ### Wave-basierte Task-Struktur
 - Tasks werden in separate Wave-Dateien aufgeteilt
@@ -37,9 +61,15 @@ spec-driven-workflow/
 │   ├── spec-requirements.md    # /spec-requirements
 │   ├── spec-design.md          # /spec-design
 │   ├── spec-tasks.md           # /spec-tasks
-│   ├── spec-execute.md         # /spec-execute
+│   ├── spec-execute.md         # /spec-execute [--git]
 │   ├── spec-status.md          # /spec-status
-│   └── spec-review.md          # /spec-review
+│   ├── spec-review.md          # /spec-review
+│   ├── spec-bug.md             # /spec-bug (NEU)
+│   ├── spec-bugs.md            # /spec-bugs (NEU)
+│   ├── spec-bug-wave.md        # /spec-bug-wave (NEU)
+│   ├── spec-feature.md         # /spec-feature (NEU)
+│   ├── spec-features.md        # /spec-features (NEU)
+│   └── spec-feature-to-tasks.md # /spec-feature-to-tasks (NEU)
 ├── agents/                      # Subagents
 │   ├── backend-executor.md     # Sonnet 4.5
 │   ├── frontend-executor.md    # Sonnet 4.5
@@ -55,6 +85,14 @@ spec-driven-workflow/
 │       └── SKILL.md            # Auto-Aktivierung
 └── assets/
     └── templates/              # Spec-Templates
+        ├── idea.md
+        ├── requirements.md
+        ├── design.md
+        ├── bug.md              # Bug-Report Template (NEU)
+        ├── feature.md          # Feature-Request Template (NEU)
+        ├── wave-report.md      # Wave-Report Template (NEU)
+        ├── bugs-index.md       # Bug-Index Template (NEU)
+        └── features-index.md   # Feature-Index Template (NEU)
 ```
 
 ## Modell-Zuordnung
@@ -139,6 +177,7 @@ Die Subagents werden automatisch verwendet:
 
 ## Slash Commands
 
+### Core Workflow
 | Command | Beschreibung | Modell |
 |---------|--------------|--------|
 | `/spec-start [name]` | Projekt initialisieren | Sonnet |
@@ -149,8 +188,24 @@ Die Subagents werden automatisch verwendet:
 | `/spec-execute` | Nächste pending Wave ausführen | Sonnet + Subagents |
 | `/spec-execute wave 2` | Bestimmte Wave ausführen | Sonnet + Subagents |
 | `/spec-execute T5` | Einzelnen Task ausführen | Sonnet + Subagents |
+| `/spec-execute --git` | Wave ausführen + Commit | Sonnet + Subagents |
+| `/spec-execute --git-push` | Wave ausführen + Commit + Push | Sonnet + Subagents |
 | `/spec-status` | Projekt-Status anzeigen | Sonnet |
 | `/spec-review T5` | Manuelles Review eines Tasks | Opus |
+
+### Bug Tracking (NEU in v2.2)
+| Command | Beschreibung | Modell |
+|---------|--------------|--------|
+| `/spec-bug` | Bug mit EARS Notation melden | Sonnet |
+| `/spec-bugs` | Alle Bugs auflisten | Sonnet |
+| `/spec-bug-wave` | Bug-Fix Wave erstellen | Sonnet |
+
+### Feature Management (NEU in v2.2)
+| Command | Beschreibung | Modell |
+|---------|--------------|--------|
+| `/spec-feature` | Feature mit EARS anfordern | Sonnet |
+| `/spec-features` | Feature Backlog anzeigen | Sonnet |
+| `/spec-feature-to-tasks` | Feature in Tasks konvertieren | Opus |
 
 ## Subagents
 
@@ -186,11 +241,23 @@ Die Subagents werden automatisch verwendet:
 │   ├── idea.md              # Projektkonzept
 │   ├── requirements.md      # EARS Requirements
 │   ├── design.md            # Technische Architektur
-│   └── tasks/               # Implementation Plan (Wave-basiert)
-│       ├── index.md         # Übersicht & Fortschritt
-│       ├── wave-1.md        # Foundation Tasks
-│       ├── wave-2.md        # Core Features
-│       └── wave-N.md        # Weitere Waves
+│   ├── tasks/               # Implementation Plan (Wave-basiert)
+│   │   ├── index.md         # Übersicht & Fortschritt
+│   │   ├── wave-1.md        # Foundation Tasks
+│   │   ├── wave-2.md        # Core Features
+│   │   ├── wave-N.md        # Weitere Waves
+│   │   └── wave-bugfix-N.md # Bug-Fix Waves (NEU)
+│   ├── reports/             # Wave Reports (NEU)
+│   │   ├── wave-1-report.md
+│   │   └── wave-N-report.md
+│   ├── bugs/                # Bug Tracking (NEU)
+│   │   ├── index.md
+│   │   ├── BUG-001.md
+│   │   └── BUG-NNN.md
+│   └── features/            # Feature Backlog (NEU)
+│       ├── index.md
+│       ├── FEAT-001.md
+│       └── FEAT-NNN.md
 └── steering/
     └── project-rules.md     # Projektübergreifende Regeln
 ```
@@ -210,11 +277,19 @@ Vorteile:
 
 Requirements verwenden EARS (Easy Approach to Requirements Syntax):
 
+| Pattern | Syntax | Verwendung |
+|---------|--------|------------|
+| **Event-Driven** | `WHEN [trigger] THE SYSTEM SHALL [behavior]` | User-Aktionen |
+| **Unwanted Behavior** | `IF [condition] THEN THE SYSTEM SHALL [behavior]` | Bugs, Fehler |
+| **State-Driven** | `WHILE [state] THE SYSTEM SHALL [behavior]` | Zustände |
+| **Optional** | `WHERE [feature] THE SYSTEM SHALL [behavior]` | Feature-Flags |
+
+### Bug Reports mit EARS (NEU)
+
 ```
-WHEN [trigger] THE SYSTEM SHALL [behavior]
-IF [condition] THEN THE SYSTEM SHALL [behavior]  
-WHILE [state] THE SYSTEM SHALL [behavior]
-WHERE [feature] THE SYSTEM SHALL [behavior]
+Expected: WHEN [action] THE SYSTEM SHALL [correct behavior]
+Actual:   IF [condition] THEN THE SYSTEM [unwanted behavior]
+Fix:      WHEN [action] THE SYSTEM SHALL [corrected behavior]
 ```
 
 ## Beispiel

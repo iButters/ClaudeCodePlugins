@@ -22,6 +22,7 @@ IDEA → REQUIREMENTS → DESIGN → TASKS → EXECUTE → REVIEW
 
 ## Available Commands
 
+### Core Workflow
 | Command | Purpose |
 |---------|---------|
 | `/spec-start [name]` | Initialize new project |
@@ -29,9 +30,23 @@ IDEA → REQUIREMENTS → DESIGN → TASKS → EXECUTE → REVIEW
 | `/spec-requirements` | Generate EARS requirements |
 | `/spec-design` | Create technical architecture |
 | `/spec-tasks` | Plan implementation tasks |
-| `/spec-execute` | Run orchestrated execution |
+| `/spec-execute [--git]` | Run orchestrated execution |
 | `/spec-status` | Show project progress |
 | `/spec-review [task]` | Manual task review |
+
+### Bug Tracking
+| Command | Purpose |
+|---------|---------|
+| `/spec-bug` | Report a bug with EARS notation |
+| `/spec-bugs` | List all bugs for project |
+| `/spec-bug-wave` | Create bug-fix wave from open bugs |
+
+### Feature Management
+| Command | Purpose |
+|---------|---------|
+| `/spec-feature` | Create feature request with EARS |
+| `/spec-features` | List all feature requests |
+| `/spec-feature-to-tasks` | Convert feature to tasks/waves |
 
 ## Natural Language Triggers
 
@@ -81,11 +96,23 @@ All specifications stored in `.specs/`:
 │   ├── idea.md              # Project concept
 │   ├── requirements.md      # EARS requirements
 │   ├── design.md            # Technical architecture
-│   └── tasks/               # Implementation plan
-│       ├── index.md         # Overview & progress
-│       ├── wave-1.md        # Wave 1 tasks
-│       ├── wave-2.md        # Wave 2 tasks
-│       └── wave-N.md        # Additional waves
+│   ├── tasks/               # Implementation plan
+│   │   ├── index.md         # Overview & progress
+│   │   ├── wave-1.md        # Wave 1 tasks
+│   │   ├── wave-2.md        # Wave 2 tasks
+│   │   ├── wave-N.md        # Additional waves
+│   │   └── wave-bugfix-N.md # Bug-fix waves
+│   ├── reports/             # Wave completion reports
+│   │   ├── wave-1-report.md
+│   │   └── wave-N-report.md
+│   ├── bugs/                # Bug tracking
+│   │   ├── index.md         # Bug overview
+│   │   ├── BUG-001.md
+│   │   └── BUG-NNN.md
+│   └── features/            # Feature requests
+│       ├── index.md         # Feature overview
+│       ├── FEAT-001.md
+│       └── FEAT-NNN.md
 └── steering/
     └── project-rules.md     # Cross-project standards
 ```
@@ -94,10 +121,17 @@ All specifications stored in `.specs/`:
 
 Requirements use EARS (Easy Approach to Requirements Syntax):
 
+| Pattern | Syntax | Use Case |
+|---------|--------|----------|
+| **Event-Driven** | `WHEN [trigger] THE SYSTEM SHALL [behavior]` | User actions, events |
+| **Unwanted Behavior** | `IF [condition] THEN THE SYSTEM SHALL [behavior]` | Errors, bugs |
+| **State-Driven** | `WHILE [state] THE SYSTEM SHALL [behavior]` | Conditions |
+| **Optional** | `WHERE [feature] THE SYSTEM SHALL [behavior]` | Feature flags |
+
+**Bug Reports use the Unwanted Behavior pattern:**
 ```
-WHEN [trigger] THE SYSTEM SHALL [behavior]
-IF [condition] THEN THE SYSTEM SHALL [behavior]
-WHILE [state] THE SYSTEM SHALL [behavior]
+Expected: WHEN [action] THE SYSTEM SHALL [correct behavior]
+Actual:   IF [condition] THEN THE SYSTEM [unwanted behavior]
 ```
 
 ## Parallel Execution
@@ -112,6 +146,9 @@ Execute with:
 - `/spec-execute` - Next pending wave
 - `/spec-execute wave 2` - Specific wave
 - `/spec-execute T5` - Single task
+- `/spec-execute wave bugfix-1` - Bug-fix wave
+- `/spec-execute --git` - Execute and commit
+- `/spec-execute --git-push` - Execute, commit, and push
 
 ## Review Pipeline
 

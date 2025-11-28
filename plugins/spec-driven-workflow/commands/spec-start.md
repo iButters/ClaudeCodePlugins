@@ -25,7 +25,12 @@ Think step by step about the project setup.
    │   ├── idea.md
    │   ├── requirements.md
    │   ├── design.md
-   │   └── tasks.md
+   │   ├── tasks/           # Task waves (created by /spec-tasks)
+   │   ├── reports/         # Wave completion reports
+   │   ├── bugs/            # Bug tracking
+   │   │   └── index.md
+   │   └── features/        # Feature requests
+   │       └── index.md
    └── steering/
        └── project-rules.md (only if not exists)
    ```
@@ -55,7 +60,13 @@ Think step by step about the project setup.
 
 4. **Initialize other files** with placeholder content indicating next steps
 
-5. **Create steering/project-rules.md** (if not exists):
+5. **Initialize bugs/index.md** with template from `assets/templates/bugs-index.md`
+
+6. **Initialize features/index.md** with template from `assets/templates/features-index.md`
+
+7. **Create reports/ directory** (empty, will be populated by /spec-execute)
+
+8. **Create steering/project-rules.md** (if not exists):
    ```markdown
    # Project Steering Rules
 
@@ -81,12 +92,21 @@ Think step by step about the project setup.
 │   ├── idea.md          ← Start here
 │   ├── requirements.md
 │   ├── design.md
-│   └── tasks.md
+│   ├── tasks/           (created by /spec-tasks)
+│   ├── reports/         (populated by /spec-execute)
+│   ├── bugs/
+│   │   └── index.md
+│   └── features/
+│       └── index.md
 └── steering/
     └── project-rules.md
 
 🚀 Next: /spec-idea
    Refine your project concept through guided questions.
+
+📋 Also available:
+   - Report bugs: /spec-bug
+   - Request features: /spec-feature
 ```
 
 ## Rules
