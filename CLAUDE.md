@@ -116,3 +116,7 @@ This is a documentation/configuration repository. No build or test commands appl
 - `agents/` - Subagent definition markdown files
 - `skills/[skill-name]/SKILL.md` - Auto-activating skill with YAML frontmatter
 - `.claude-plugin/plugin.json` - Plugin manifest
+
+### Requirements
+- Always use the english language when editing or creating files
+- Always update the version of a plugin you worked on
