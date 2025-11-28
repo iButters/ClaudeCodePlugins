@@ -1,7 +1,6 @@
 ---
 description: Show current project status and progress overview
 argument-hint: [project-name]
-model: sonnet
 allowed-tools: Read
 ---
 

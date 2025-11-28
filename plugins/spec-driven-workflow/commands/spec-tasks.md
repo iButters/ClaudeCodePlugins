@@ -1,7 +1,6 @@
 ---
 description: Create implementation task breakdown with dependencies and wave-based file structure
 argument-hint: [project-name]
-model: opus
 allowed-tools: Read, Write, Edit, Bash(mkdir:*)
 ---
 

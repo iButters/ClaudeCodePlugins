@@ -1,7 +1,6 @@
 ---
 description: Manually review a completed task against requirements and design
 argument-hint: [task-id]
-model: opus
 allowed-tools: Read, Bash(ls:*), Bash(cat:*), Bash(git diff:*), Task
 ---
 

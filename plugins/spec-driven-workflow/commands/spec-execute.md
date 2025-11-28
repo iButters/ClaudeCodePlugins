@@ -1,7 +1,6 @@
 ---
 description: Execute implementation tasks with parallel subagent orchestration
 argument-hint: [T3|wave 2|all] [--git] [--git-push]
-model: sonnet
 allowed-tools: Read, Write, Edit, Bash, Task
 ---
 

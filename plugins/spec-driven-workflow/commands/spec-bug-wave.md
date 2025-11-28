@@ -1,7 +1,6 @@
 ---
 description: Create a bug-fix wave from open bugs
 argument-hint: [project-name]
-model: sonnet
 allowed-tools: Read, Write, Edit, Bash(mkdir:*), Bash(ls:*)
 ---
 

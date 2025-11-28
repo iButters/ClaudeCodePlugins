@@ -1,7 +1,6 @@
 ---
 description: Create feature requests with EARS notation
 argument-hint: [project-name]
-model: sonnet
 allowed-tools: Read, Write, Edit, Bash(mkdir:*), Bash(ls:*)
 ---
 

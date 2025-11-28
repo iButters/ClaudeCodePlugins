@@ -1,7 +1,6 @@
 ---
 description: List and display bug reports for a project
 argument-hint: [project-name]
-model: sonnet
 allowed-tools: Read
 ---
 

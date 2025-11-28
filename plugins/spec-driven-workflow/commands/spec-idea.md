@@ -1,7 +1,6 @@
 ---
 description: Refine project idea through interactive dialog with deep analysis
 argument-hint: [project-name]
-model: opus
 allowed-tools: Read, Write, Edit
 ---
 

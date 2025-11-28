@@ -1,7 +1,6 @@
 ---
 description: Create technical architecture and design based on requirements
 argument-hint: [project-name]
-model: opus
 allowed-tools: Read, Write, Edit
 ---
 
