@@ -11,22 +11,38 @@ Semantic code understanding and intelligent editing via Language Server Protocol
 - **Multi-Language Support**: 30+ programming languages
 - **Token Efficiency**: Reduces context usage by avoiding full file reads
 
-## Installation
+## Prerequisites
 
-### 1. Install Serena MCP Server
+[uv](https://docs.astral.sh/uv/) must be installed:
 
 ```bash
-# Add to Claude Code
-claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena start-mcp-server --context ide-assistant --project $(pwd)
+# Windows (PowerShell)
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 
-# Or with JSON configuration
-claude mcp add-json "serena" '{"command":"uvx","args":["--from","git+https://github.com/oraios/serena","serena-mcp-server"]}'
+# macOS/Linux
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-### 2. Install This Plugin
+## Installation
+
+### Option A: Install Plugin (Recommended)
 
 ```bash
-/plugin install serena-mcp@YOUR_MARKETPLACE
+/plugin install serena-mcp@claude-code-plugins
+```
+
+The Serena MCP server starts automatically when the plugin is enabled - no manual configuration needed!
+
+### Option B: Global Installation (All Projects)
+
+```bash
+claude mcp add --scope user serena -- uvx --from git+https://github.com/oraios/serena serena start-mcp-server --context ide-assistant --project .
+```
+
+### Option C: Project-Only Installation
+
+```bash
+claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena start-mcp-server --context ide-assistant --project .
 ```
 
 ## Features

@@ -286,6 +286,7 @@ Consult these helpful guides based on your skill's needs:
 
 - **Multi-step processes**: See references/workflows.md for sequential workflows and conditional logic
 - **Specific output formats or quality standards**: See references/output-patterns.md for template and example patterns
+- **Further informations about writing prompts and instructions for LLMs**: See references/Prompt-Engineering.md
 
 These files contain established best practices for effective skill design.
 
