@@ -1,12 +1,10 @@
 {
   "name": "spec-driven-workflow",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Specification-Driven Development with multi-agent orchestration for transforming ideas into production-ready software",
   "author": {
     "name": "iButters"
   },
   "keywords": ["workflow", "specification", "multi-agent", "orchestration", "planning", "ears"],
-  "license": "MIT",
-  "commands": "./commands",
-  "agents": "./agents"
+  "license": "MIT"
 }
