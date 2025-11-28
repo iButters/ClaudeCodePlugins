@@ -1,0 +1,45 @@
+{
+  "name": "claude-code-plugins",
+  "owner": {
+    "name": "iButters"
+  },
+  "metadata": {
+    "description": "A curated collection of Claude Code plugins for structured development workflows, automation, and productivity",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "spec-driven-workflow",
+      "source": "./plugins/spec-driven-workflow",
+      "description": "Specification-Driven Development with multi-agent orchestration (IDEA → REQUIREMENTS → DESIGN → TASKS → EXECUTE → REVIEW)",
+      "version": "2.1.0",
+      "author": "iButters",
+      "keywords": ["workflow", "specification", "multi-agent", "orchestration", "planning"]
+    },
+    {
+      "name": "dotnet-development",
+      "source": "./plugins/dotnet-development",
+      "description": "Expert guidance for .NET development with Domain-Driven Design, SOLID principles, and modern C# practices",
+      "version": "1.0.0",
+      "author": "iButters",
+      "keywords": ["dotnet", "csharp", "ddd", "solid", "aspnetcore", "efcore"]
+    },
+    {
+      "name": "serena-mcp",
+      "source": "./plugins/serena-mcp",
+      "description": "Serena MCP integration for semantic code understanding and intelligent editing via Language Server Protocol",
+      "version": "1.0.0",
+      "author": "iButters",
+      "homepage": "https://github.com/oraios/serena",
+      "keywords": ["mcp", "serena", "lsp", "code-analysis", "refactoring"]
+    },
+    {
+      "name": "skill-creator",
+      "source": "./plugins/skill-creator",
+      "description": "Guide for creating effective skills that extend Claude's capabilities with specialized knowledge, workflows, and tool integrations",
+      "version": "1.0.0",
+      "author": "Anthropic",
+      "keywords": ["skill", "creator", "workflow", "development"]
+    }
+  ]
+}

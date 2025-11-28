@@ -1,0 +1,10 @@
+{
+  "name": "dotnet-development",
+  "version": "1.0.0",
+  "description": "Expert guidance for .NET development with Domain-Driven Design, SOLID principles, and modern C# practices",
+  "author": {
+    "name": "iButters"
+  },
+  "keywords": ["dotnet", "csharp", "ddd", "solid", "aspnetcore", "efcore", "testing"],
+  "license": "MIT"
+}

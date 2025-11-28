@@ -1,0 +1,11 @@
+{
+  "name": "serena-mcp",
+  "version": "1.0.0",
+  "description": "Serena MCP integration for semantic code understanding and intelligent editing via Language Server Protocol",
+  "author": {
+    "name": "iButters"
+  },
+  "homepage": "https://github.com/oraios/serena",
+  "keywords": ["mcp", "serena", "code-analysis", "lsp", "refactoring"],
+  "license": "MIT"
+}
