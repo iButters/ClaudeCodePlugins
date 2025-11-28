@@ -1,7 +1,7 @@
 ---
 description: Initialize a new spec-driven project with structured planning
 argument-hint: [project-name]
-model: claude-sonnet-4-5-20250514
+model: sonnet
 allowed-tools: Read, Write, Edit, Bash(mkdir:*), Bash(ls:*)
 ---
 

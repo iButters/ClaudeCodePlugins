@@ -1,7 +1,7 @@
 ---
 description: Generate detailed requirements with EARS notation from refined idea
 argument-hint: [project-name]
-model: claude-opus-4-5-20250514
+model: opus
 allowed-tools: Read, Write, Edit
 ---
 

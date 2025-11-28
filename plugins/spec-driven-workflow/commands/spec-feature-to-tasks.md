@@ -1,7 +1,7 @@
 ---
 description: Convert an approved feature request into implementation tasks and waves
 argument-hint: [FEAT-ID]
-model: claude-opus-4-5-20250514
+model: opus
 allowed-tools: Read, Write, Edit, Bash(mkdir:*), Bash(ls:*)
 ---
 
