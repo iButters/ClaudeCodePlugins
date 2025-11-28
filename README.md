@@ -19,7 +19,7 @@ A curated collection of Claude Code plugins for structured development workflows
 
 | Plugin | Description | Version |
 |--------|-------------|---------|
-| [spec-driven-workflow](./plugins/spec-driven-workflow/) | Specification-Driven Development with multi-agent orchestration | 2.1.0 |
+| [spec-driven-workflow](./plugins/spec-driven-workflow/) | Specification-Driven Development with multi-agent orchestration | 2.2.0 |
 
 ---
 

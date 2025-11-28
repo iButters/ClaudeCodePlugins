@@ -1,6 +1,6 @@
 {
   "name": "spec-driven-workflow",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "Specification-Driven Development with multi-agent orchestration for transforming ideas into production-ready software",
   "author": {
     "name": "iButters"

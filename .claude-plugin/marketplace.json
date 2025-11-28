@@ -8,7 +8,7 @@
       "name": "spec-driven-workflow",
       "source": "./plugins/spec-driven-workflow",
       "description": "Specification-Driven Development with multi-agent orchestration",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "author": {
         "name": "iButters"
       },

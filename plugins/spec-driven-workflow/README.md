@@ -106,6 +106,121 @@ spec-driven-workflow/
 
 Alle Modelle verwenden Extended Thinking.
 
+## Workflow-Architektur
+
+### Trigger-Mechanismen
+
+```mermaid
+flowchart TD
+    subgraph Input["🎯 User Input"]
+        SC["/spec-* Commands"]
+        NL["Natural Language"]
+    end
+
+    SC --> CMD["Command File<br/>(commands/*.md)"]
+    NL --> SKILL["Skill File<br/>(SKILL.md)"]
+
+    CMD --> MODEL["Model Selection<br/>+ Tool Auth"]
+    SKILL --> MODEL
+
+    MODEL --> EXEC["Agent Execution"]
+```
+
+### Der 6-Phasen Entwicklungszyklus
+
+```mermaid
+flowchart LR
+    IDEA["💡 IDEA<br/><small>idea.md</small>"]
+    REQ["📋 REQUIREMENTS<br/><small>requirements.md</small>"]
+    DES["🏗️ DESIGN<br/><small>design.md</small>"]
+    TASK["📝 TASKS<br/><small>tasks/wave-*.md</small>"]
+    EXEC["⚡ EXECUTE<br/><small>Code + Reports</small>"]
+    REV["✅ REVIEW<br/><small>Feedback</small>"]
+
+    IDEA --> REQ --> DES --> TASK --> EXEC --> REV
+```
+
+### Agent-Hierarchie & Zusammenarbeit
+
+```mermaid
+flowchart TD
+    subgraph Orchestrator["🎭 TASK ORCHESTRATOR (Opus 4.5)"]
+        ORCH["Koordiniert alle Agents<br/>Verteilt Tasks<br/>Max 4 parallel"]
+    end
+
+    subgraph Executors["⚙️ EXECUTOR AGENTS (Sonnet 4.5)"]
+        BE["backend-executor<br/><small>APIs, Server Logic</small>"]
+        FE["frontend-executor<br/><small>UI, Styling</small>"]
+        DB["database-executor<br/><small>Schema, Migrations</small>"]
+        TE["test-executor<br/><small>Unit/Integration</small>"]
+        DO["docs-executor<br/><small>README, API Docs</small>"]
+    end
+
+    subgraph Reviewers["🔍 REVIEWER AGENTS (Opus 4.5)"]
+        RR["requirements-reviewer<br/><small>EARS Validation</small>"]
+        AR["architecture-reviewer<br/><small>Design Compliance</small>"]
+        CR["code-quality-reviewer<br/><small>Security, Performance</small>"]
+    end
+
+    ORCH --> BE & FE & DB & TE & DO
+    BE & FE & DB & TE & DO --> RR & AR & CR
+```
+
+### Execution-Flow (`/spec-execute`)
+
+```mermaid
+flowchart TD
+    START["/spec-execute wave 2 --git"] --> LOAD["1. Load tasks/index.md<br/>+ tasks/wave-2.md"]
+    LOAD --> CONFIRM["2. User Confirmation"]
+    CONFIRM --> PARALLEL["3. Parallel Execution<br/>(max 4 tasks)"]
+
+    subgraph PAR["⚡ Parallel Tasks"]
+        T1["Task T4<br/>backend"]
+        T2["Task T5<br/>frontend"]
+        T3["Task T6<br/>database"]
+        T4["Task T7<br/>test"]
+    end
+
+    PARALLEL --> PAR
+    PAR --> REVIEW["4. Review Pipeline"]
+
+    subgraph REV["🔍 Reviews"]
+        R1["requirements"]
+        R2["architecture"]
+        R3["code-quality"]
+    end
+
+    REVIEW --> REV
+    REV --> CHECK{All Pass?}
+    CHECK -->|Yes| UPDATE["5. Update Files<br/>wave-2.md + index.md"]
+    CHECK -->|No| RETRY["Feedback Loop<br/>(max 2 retries)"]
+    RETRY --> PAR
+
+    UPDATE --> REPORT["6. Generate Report<br/>reports/wave-2-report.md"]
+    REPORT --> GIT["7. Git Commit<br/>(--git flag)"]
+    GIT --> DONE["✅ Complete"]
+```
+
+### File-basierte Kommunikation
+
+```
+.specs/[project]/
+├── idea.md                 ← Phase 1: Konzept
+├── requirements.md         ← Phase 2: EARS Requirements
+├── design.md               ← Phase 3: Technische Architektur
+├── tasks/
+│   ├── index.md            ← Zentrale Fortschrittsverfolgung
+│   ├── wave-1.md           ← Foundation Tasks
+│   ├── wave-2.md           ← Core Features
+│   └── wave-N.md           ← Weitere Waves
+├── reports/
+│   └── wave-N-report.md    ← Completion Reports
+├── bugs/
+│   └── BUG-NNN.md
+└── features/
+    └── FEAT-NNN.md
+```
+
 ## Installation
 
 ### Option 1: Manuell
