@@ -1,7 +1,7 @@
 ---
 name: docs-executor
 description: Specialized technical writer for README, API docs, and code comments. Use for tasks with type "docs".
-tools: Read, Write, Edit, Glob, Grep
+tools: Read, Write, Edit, Glob, Grep, mcp__serena__get_symbols_overview, mcp__serena__find_symbol, mcp__serena__list_dir, mcp__serena__search_for_pattern, mcp__serena__list_memories, mcp__serena__read_memory
 model: haiku
 ---
 

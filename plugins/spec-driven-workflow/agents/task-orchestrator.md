@@ -1,7 +1,7 @@
 ---
 name: task-orchestrator
 description: Orchestrates multi-task execution with dependency analysis and parallel coordination. Use for complex execution planning.
-tools: Read, Write, Edit, Task, Bash(ls:*), Bash(git status:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Bash(mkdir:*)
+tools: Read, Write, Edit, Task, Bash(ls:*), Bash(git status:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Bash(mkdir:*), mcp__serena__list_dir, mcp__serena__find_file, mcp__serena__list_memories, mcp__serena__read_memory
 model: opus
 ---
 

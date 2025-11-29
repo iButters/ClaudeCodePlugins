@@ -1,7 +1,7 @@
 ---
 name: code-quality-reviewer
 description: Reviews code quality independent of functional requirements. Checks security, performance, and clean code. Use after task completion.
-tools: Read, Grep, Glob, Bash(npm audit:*), Bash(npx eslint:*)
+tools: Read, Grep, Glob, Bash(npm audit:*), Bash(npx eslint:*), mcp__serena__get_symbols_overview, mcp__serena__find_symbol, mcp__serena__find_referencing_symbols, mcp__serena__list_dir, mcp__serena__search_for_pattern, mcp__serena__list_memories, mcp__serena__read_memory
 model: opus
 ---
 

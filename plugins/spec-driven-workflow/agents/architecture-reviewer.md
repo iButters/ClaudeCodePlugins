@@ -1,7 +1,7 @@
 ---
 name: architecture-reviewer
 description: Reviews task output against design.md architecture specifications. Use after task completion for validation.
-tools: Read, Grep, Glob
+tools: Read, Grep, Glob, mcp__serena__get_symbols_overview, mcp__serena__find_symbol, mcp__serena__find_referencing_symbols, mcp__serena__list_dir, mcp__serena__search_for_pattern, mcp__serena__list_memories, mcp__serena__read_memory
 model: opus
 ---
 

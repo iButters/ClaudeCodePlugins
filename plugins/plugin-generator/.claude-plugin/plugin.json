@@ -1,0 +1,10 @@
+{
+  "name": "plugin-generator",
+  "version": "1.1.0",
+  "description": "Creates high-quality Claude Code plugins from natural language descriptions and validates them through specialized review agents",
+  "author": {
+    "name": "iButters"
+  },
+  "keywords": ["plugin", "generator", "workflow", "quality-assurance", "multi-agent", "validation"],
+  "license": "MIT"
+}

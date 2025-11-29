@@ -47,14 +47,14 @@
       "keywords": ["mcp", "serena", "lsp", "code-analysis", "refactoring"]
     },
     {
-      "name": "skill-creator",
-      "source": "./plugins/skill-creator",
-      "description": "Guide for creating effective skills that extend Claude's capabilities with specialized knowledge, workflows, and tool integrations",
-      "version": "1.0.0",
+      "name": "plugin-generator",
+      "source": "./plugins/plugin-generator",
+      "description": "Creates high-quality Claude Code plugins from natural language descriptions and validates them through specialized review agents",
+      "version": "1.1.0",
       "author": {
-        "name": "Anthropic"
+        "name": "iButters"
       },
-      "keywords": ["skill", "creator", "workflow", "development"]
+      "keywords": ["plugin", "generator", "workflow", "quality-assurance", "multi-agent", "validation"]
     }
   ]
 }
