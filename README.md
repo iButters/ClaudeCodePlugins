@@ -6,7 +6,7 @@ A curated collection of Claude Code plugins for structured development workflows
 
 ```bash
 # Add this marketplace
-/plugin marketplace add YOUR_USERNAME/claude-code-marketplace
+/plugin marketplace add iButters/claude-code-plugins
 
 # Browse available plugins
 /plugin
@@ -19,7 +19,12 @@ A curated collection of Claude Code plugins for structured development workflows
 
 | Plugin | Description | Version |
 |--------|-------------|---------|
-| [spec-driven-workflow](./plugins/spec-driven-workflow/) | Specification-Driven Development with multi-agent orchestration | 2.2.0 |
+| [spec-driven-workflow](./plugins/spec-driven-workflow/) | Specification-Driven Development with multi-agent orchestration for transforming ideas into production-ready software | 2.2.2 |
+| [dotnet-development](./plugins/dotnet-development/) | Expert guidance for .NET development with Domain-Driven Design, SOLID principles, and modern C# practices | 1.0.0 |
+| [maui-blazor-development](./plugins/maui-blazor-development/) | Expert guidance for .NET MAUI Blazor Hybrid development with cross-platform patterns, Blazor components, and native platform integration | 1.0.0 |
+| [serena-mcp](./plugins/serena-mcp/) | Serena MCP integration for semantic code understanding and intelligent editing via Language Server Protocol | 1.1.0 |
+| [skill-creator](./plugins/skill-creator/) | Guide for creating effective skills that extend Claude's capabilities with specialized knowledge, workflows, and tool integrations | 1.0.0 |
+| [plugin-reviewer](./plugins/plugin-reviewer/) | Reviews and evaluates Claude Code plugins for quality, security, and best practices through specialized review agents | 1.4.0 |
 
 ---
 
@@ -92,7 +97,7 @@ IDEA → REQUIREMENTS → DESIGN → TASKS → EXECUTE → REVIEW
 ## 📁 Repository Structure
 
 ```
-claude-code-marketplace/
+claude-code-plugins/
 ├── .claude-plugin/
 │   └── marketplace.json      # Marketplace manifest
 ├── .github/
@@ -154,7 +159,7 @@ Add to your project's `.claude/settings.json` for automatic installation:
     "team-marketplace": {
       "source": {
         "source": "github",
-        "repo": "YOUR_USERNAME/claude-code-marketplace"
+        "repo": "iButters/claude-code-plugins"
       }
     }
   },
@@ -179,5 +184,5 @@ MIT License - See [LICENSE](./LICENSE) for details.
 
 ## 📞 Support
 
-- [Open an Issue](https://github.com/YOUR_USERNAME/claude-code-marketplace/issues)
-- [Discussions](https://github.com/YOUR_USERNAME/claude-code-marketplace/discussions)
+- [Open an Issue](https://github.com/iButters/claude-code-plugins/issues)
+- [Discussions](https://github.com/iButters/claude-code-plugins/discussions)

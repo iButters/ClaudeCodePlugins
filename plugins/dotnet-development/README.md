@@ -1,91 +1,184 @@
-# .NET Development Plugin
+# dotnet-development
 
-Expert guidance for .NET development with Domain-Driven Design, SOLID principles, and modern C# practices.
+Expert guidance for modern .NET development with Domain-Driven Design, SOLID principles, ASP.NET Core APIs, and testing best practices.
 
-## Features
+> **TL;DR:** Use this plugin whenever you want Claude to behave like a senior .NET architect and reviewer for C# code, projects, and APIs.
 
-This plugin provides **auto-activating skills** that guide Claude when working with .NET code:
+---
 
-- **Domain-Driven Design** patterns (Aggregates, Value Objects, Domain Events)
-- **SOLID principles** application
-- **ASP.NET Core REST API** best practices
-- **Entity Framework Core** patterns
-- **Testing strategies** (Unit, Integration, API tests)
-- **C# coding conventions** (naming, nullability, formatting)
+## Overview
 
-## When It Activates
+- **Category:** Backend development, architecture, and testing for .NET/C#
+- **Primary goal:** Help you design and implement maintainable, testable, domain-driven .NET applications.
+- **Typical use cases:**
+  - Reviewing and improving C# code and .NET architectures
+  - Designing aggregates, bounded contexts, and domain models
+  - Implementing REST APIs with ASP.NET Core and EF Core
+  - Creating or improving test suites (unit, integration, API)
+  - Refactoring legacy .NET projects toward modern patterns
+- **Requirements:** Claude Desktop / Claude Code with this marketplace installed; any existing .NET solution (`.sln`) or project (`.csproj`) you want to work on.
 
-The skill automatically activates when you're working with:
-
-- C# code files (`.cs`)
-- .NET project files (`.csproj`, `.sln`)
-- ASP.NET Core applications
-- Domain-Driven Design implementations
-- REST API development
-- Entity Framework Core
-- Unit/integration testing in .NET
-
-## Contents
-
-### Main Skill
-- `skills/dotnet-development/SKILL.md` - Core guidelines and workflow
-
-### Reference Documentation
-- `references/ddd-patterns.md` - Aggregates, Value Objects, Domain Events, Specifications
-- `references/api-patterns.md` - Validation, Error Handling, Versioning, Auth, Performance
-- `references/testing-patterns.md` - Test naming, categories, mocking, coverage
-
-## Key Patterns
-
-### Implementation Workflow
-
-1. **Analysis Phase** - Identify domain concepts, layers, SOLID alignment
-2. **Architecture Review** - Validate aggregate boundaries, dependencies
-3. **Implementation** - Apply C# best practices, async/await, DI
-4. **Testing** - Write tests with `MethodName_Condition_ExpectedResult` naming
-
-### Layer Responsibilities
-
-| Layer | Responsibility |
-|-------|---------------|
-| Domain | Business logic, aggregates, value objects, domain events |
-| Application | Orchestration, validation, DTOs, use cases |
-| Infrastructure | Persistence, external services, repositories |
-| API | HTTP endpoints, controllers, minimal APIs |
-
-### C# Conventions
-
-- **PascalCase**: Types, methods, public members
-- **camelCase**: Private fields, local variables
-- **File-scoped namespaces**
-- **Nullable reference types enabled**
-- **Pattern matching preferred**
+---
 
 ## Installation
 
+### Via Claude Code Marketplace
+
 ```bash
-/plugin install dotnet-development@YOUR_MARKETPLACE
+/plugin marketplace add <MARKETPLACE-NAME>
+/plugin install dotnet-development@<MARKETPLACE-NAME>
 ```
 
-## Usage
+After installation, Claude gains a dedicated `.NET Development` skill that it can activate whenever you open C#/.NET files or ask .NET-related questions.
 
-Simply work on .NET code and the skill will automatically guide Claude with:
+### Manual installation (optional)
 
-- Proper aggregate design
-- SOLID-compliant class structure
-- RESTful API patterns
-- Comprehensive test strategies
+If you are using this repository directly:
 
-## Example
+1. Clone the repo containing this plugin.
+2. Ensure the `dotnet-development` folder lives under your Claude marketplace `plugins/` directory.
+3. Restart Claude so it can pick up the new plugin metadata from `.claude-plugin/plugin.json`.
 
-When you ask Claude to implement a feature in a .NET project, it will:
+---
 
-1. Analyze domain concepts involved
-2. Design aggregates with proper boundaries
-3. Implement with DDD patterns
-4. Add appropriate tests
-5. Follow C# conventions throughout
+## Quick Start
 
-## License
+1. Open a .NET project in your IDE and start a Claude Code session in the repo root.
+2. Describe what you want, for example:
+   - “Review my domain model for the ordering context.”
+   - “Help me design an aggregate for booking reservations.”
+3. Paste the relevant C# files or ask Claude to inspect them (using your usual tooling).
+4. Ask for a concrete output:
+   - “Propose a refactored version that follows DDD and SOLID.”
+   - “Design a REST API controller and minimal API endpoints for this service.”
+   - “Generate a set of unit tests and integration tests for this service.”
 
-MIT
+Example prompt:
+
+```text
+Use the dotnet-development skill.
+Review my `Order` aggregate and propose improvements for DDD, SOLID, and testability.
+```
+
+Claude will then apply the patterns and checklists from this plugin when suggesting designs and code.
+
+---
+
+## Feature Overview
+
+- **DDD guidance:** Aggregates, entities, value objects, domain events, bounded contexts.
+- **Layered architecture:** Clear separation between Domain, Application, and Infrastructure layers.
+- **API patterns:** RESTful controllers and minimal APIs with proper status codes and problem details.
+- **Testing strategy:** Naming conventions, test categories, mocking strategies, and coverage focus.
+- **C# conventions:** Naming, formatting, nullability, async/await, dependency injection.
+- **Security and robustness:** Input validation, error handling, and consistent exception patterns.
+
+---
+
+## Typical Workflows
+
+### Workflow 1: Designing a new domain model
+
+1. Describe your business domain and main entities.
+2. Ask Claude to propose bounded contexts and aggregates.
+3. Review the suggested domain model and iterate.
+4. Let Claude generate sample aggregate classes and domain events.
+5. Add tests to validate key business rules.
+
+### Workflow 2: Building an API around an existing domain
+
+1. Show Claude your domain layer (aggregate roots, entities, value objects).
+2. Ask it to design application services around those aggregates.
+3. Generate REST controllers or minimal APIs following the recommended patterns.
+4. Add API tests (integration tests) and adjust infrastructure (EF Core, repositories).
+
+### Workflow 3: Improving an existing .NET service
+
+1. Provide Claude with one or more service classes, controllers, or repositories.
+2. Ask for an analysis focusing on SOLID, separation of concerns, and testability.
+3. Apply the proposed refactors (e.g., extract domain logic from controllers into aggregates).
+4. Generate or refine tests to protect against regressions.
+
+---
+
+## Configuration
+
+This plugin is skill-based and requires no special configuration beyond being enabled.
+
+Example `.claude/settings.json`:
+
+```json
+{
+  "enabledPlugins": [
+    "dotnet-development@<MARKETPLACE-NAME>"
+  ]
+}
+```
+
+Claude automatically triggers the skill when:
+- You work with `.cs`, `.csproj`, `.sln`, or ASP.NET Core projects.
+- You describe tasks related to DDD, SOLID, REST APIs, or testing in .NET.
+
+---
+
+## Directory & Project Structure
+
+```text
+plugins/dotnet-development/
+├─ .claude-plugin/
+│  └─ plugin.json           # Plugin metadata (name, description, keywords, license)
+├─ references/              # Deep-dive reference guides
+│  ├─ api-patterns.md       # REST, validation, error handling, versioning
+│  ├─ ddd-patterns.md       # Aggregates, bounded contexts, domain events
+│  └─ testing-patterns.md   # Unit/integration testing, mocking, coverage
+└─ skills/
+   └─ dotnet-development/
+      └─ SKILL.md           # Main .NET development skill instructions
+```
+
+The `SKILL.md` file contains the detailed workflow, examples, and checklists that Claude uses internally when acting as a .NET expert.
+
+---
+
+## Best Practices & Tips
+
+- Start by explaining your domain and constraints, not just showing code.
+- Ask for diagrams or conceptual models before asking for full implementations.
+- Use this plugin together with code navigation tools (like Serena MCP) to target specific files and symbols.
+- When refactoring, ask Claude to:
+  - Propose a refactor plan.
+  - Show a small, focused diff (one class or method at a time).
+  - Generate tests before and after refactoring when possible.
+
+Good prompts:
+- “Given this domain description, propose aggregates and value objects.”
+- “Refactor this service to follow CQRS and improve testability.”
+
+---
+
+## Troubleshooting
+
+- **Problem:** Suggestions feel generic and not particularly “.NET-aware”.  
+  **Fix:** Explicitly mention that Claude should use the `dotnet-development` skill and provide concrete C# files or domain descriptions.
+
+- **Problem:** Claude mixes concerns (domain logic in controllers, etc.).  
+  **Fix:** Ask it to re-check the design against the layered architecture described in the `.NET Development` skill and `ddd-patterns.md`.
+
+- **Problem:** Not enough focus on tests.  
+  **Fix:** Ask specifically for a testing plan and example test files guided by `testing-patterns.md`.
+
+---
+
+## Versioning, Maintenance & Compatibility
+
+- **Current version:** `1.0.0`
+- **Tested with:** Modern .NET (6+), ASP.NET Core, and C# language features.
+- **Breaking changes:** See the git history or repository changelog for evolution of patterns and references.
+
+---
+
+## License & Contribution
+
+- **License:** MIT (see `plugins/dotnet-development/.claude-plugin/plugin.json` and repository `LICENSE`).
+- **Contributions:** Propose new patterns, examples, or corrections via pull requests or issues in the parent repository.
+- **Contact/Support:** Use the issue tracker or discussions of the main Claude Code marketplace repo where this plugin is hosted.
