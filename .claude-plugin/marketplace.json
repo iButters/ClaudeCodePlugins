@@ -1,6 +1,6 @@
 {
   "name": "claude-code-plugins",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "owner": {
     "name": "iButters"
   },
@@ -8,12 +8,12 @@
     {
       "name": "spec-driven-workflow",
       "source": "./plugins/spec-driven-workflow",
-      "description": "Specification-Driven Development with multi-agent orchestration",
-      "version": "2.2.1",
+      "description": "Specification-Driven Development with multi-agent orchestration for transforming ideas into production-ready software",
+      "version": "2.2.2",
       "author": {
         "name": "iButters"
       },
-      "keywords": ["workflow", "specification", "multi-agent", "orchestration", "planning"]
+      "keywords": ["workflow", "specification", "multi-agent", "orchestration", "planning", "ears"]
     },
     {
       "name": "dotnet-development",
@@ -23,7 +23,7 @@
       "author": {
         "name": "iButters"
       },
-      "keywords": ["dotnet", "csharp", "ddd", "solid", "aspnetcore", "efcore"]
+      "keywords": ["dotnet", "csharp", "ddd", "solid", "aspnetcore", "efcore", "testing"]
     },
     {
       "name": "maui-blazor-development",
@@ -39,22 +39,32 @@
       "name": "serena-mcp",
       "source": "./plugins/serena-mcp",
       "description": "Serena MCP integration for semantic code understanding and intelligent editing via Language Server Protocol",
-      "version": "1.0.0",
-      "author": {
-        "name": "iButters"
-      },
-      "homepage": "https://github.com/oraios/serena",
-      "keywords": ["mcp", "serena", "lsp", "code-analysis", "refactoring"]
-    },
-    {
-      "name": "plugin-generator",
-      "source": "./plugins/plugin-generator",
-      "description": "Creates high-quality Claude Code plugins from natural language descriptions and validates them through specialized review agents",
       "version": "1.1.0",
       "author": {
         "name": "iButters"
       },
-      "keywords": ["plugin", "generator", "workflow", "quality-assurance", "multi-agent", "validation"]
+      "homepage": "https://github.com/oraios/serena",
+      "keywords": ["mcp", "serena", "code-analysis", "lsp", "refactoring"]
+    },
+    {
+      "name": "skill-creator",
+      "source": "./plugins/skill-creator",
+      "description": "Guide for creating effective skills that extend Claude's capabilities with specialized knowledge, workflows, and tool integrations",
+      "version": "1.0.0",
+      "author": {
+        "name": "Anthropic"
+      },
+      "keywords": ["skill", "creator", "workflow", "development"]
+    },
+    {
+      "name": "plugin-reviewer",
+      "source": "./plugins/plugin-reviewer",
+      "description": "Reviews and evaluates Claude Code plugins for quality, security, and best practices through specialized review agents",
+      "version": "1.4.0",
+      "author": {
+        "name": "iButters"
+      },
+      "keywords": ["plugin", "reviewer", "quality-assurance", "multi-agent", "validation", "security"]
     }
   ]
 }
