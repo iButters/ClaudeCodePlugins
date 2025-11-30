@@ -6,15 +6,35 @@
 
 ## Workflow Overview
 
-The command executes an intelligent improvement cycle consisting of four main phases that repeat until the quality target is reached or termination criteria apply.
+The command executes an intelligent improvement cycle with **7-step chain-of-thought reasoning** that repeats until the quality target is reached or termination criteria apply. This decomposition follows research-backed best practices for very complex workflows [arXiv 2311.05661].
 
-Phase one is initialization. If the user describes a plugin idea, the initial plugin is first created via the generate-plugin workflow. If the user already has an existing plugin, it is used as the starting point. In both cases, a baseline review is performed to determine the current quality status.
+**Step 1: INPUT PROCESSING**
+Load the plugin into context. If the user describes a new plugin idea, delegate to generate-plugin workflow to create the initial version. If an existing plugin is provided, create a complete file inventory with MD5 hashes for change tracking and rollback capability.
 
-Phase two is strategic planning. The Review Orchestrator has already created a prioritized roadmap with critical fixes, major improvements, and optimizations. Each phase has an estimated impact rating. The system now calculates which fixes should be addressed in the current iteration based on the difference between the current score and target score.
+**Step 2: BASELINE REVIEW**
+Delegate to Review Orchestrator to perform comprehensive quality assessment. Extract overall score, dimensional scores (Prompt Engineering, Security, Few-Shot, CoT, Architecture, Technical Standards), and prioritized issue list. Document baseline as starting reference point.
 
-Phase three is focused implementation. The system does not work through all issues simultaneously but concentrates on a manageable amount of prioritized changes. For each change, the affected file is loaded, the specific modification is made, and the file is saved. Old versions are kept as backups for possible rollbacks.
+**Step 3: GAP ANALYSIS**
+Calculate delta between baseline score and target score. Perform feasibility check: if already at/above target, terminate with success; if delta >4 points, warn about high iteration count. Estimate required iterations based on roadmap impact (Critical: +1.5, Major: +0.8, Minor: +0.4).
 
-Phase four is validation and decision. After each implementation phase, a complete re-review is performed. The system compares the new score with the previous one. If the target score is reached, the loop terminates successfully. If significant progress was made but the target is not yet reached, the next iteration starts. If no progress or even regression is detected, the rollback logic kicks in.
+**Step 4: ACTION SELECTION (Strategic Planning)**
+Based on aggressiveness level (1=conservative, 2=moderate, 3=aggressive), select which issues to address in this iteration. Apply filters: focus dimension (if specified), preserve-sections (protect user-edited content), dependency ordering. Generate planned action list with estimated impact per fix.
+
+**Step 5: IMPLEMENTATION (Focused Execution)**
+Create iteration backup (backup-iteration-N-timestamp). Sequentially apply each planned change: locate exact file position, make modification respecting preserve-sections, validate syntax after each change, document in change log. Run incremental validation after every 1/3 of changes.
+
+**Step 6: VALIDATION (Comprehensive Re-Review)**
+Delegate to Review Orchestrator with same profile as baseline. Extract new overall score and dimensional scores. Calculate progress metrics: score improvement (new - old), improvement rate (actual / estimated), regression detection (dimensional drops).
+
+**Step 7: DECISION (Intelligent Loop Control)**
+Make one of 5 decisions based on progress analysis:
+- **Success** (score ≥ target): terminate with success, save final plugin
+- **Continue** (improvement ≥ min-improvement AND iterations < max): start next iteration with recalculated roadmap
+- **Rollback and Retry** (score dropped OR <min-improvement): revert to backup, try alternative approach (max 2 rollbacks)
+- **Plateau** (2 consecutive iterations <min-improvement): stop, recommend manual intervention
+- **Max Iterations** (limit reached): terminate with partial success, offer options (accept/continue/lower target)
+
+**Loop Logic**: Steps 4-7 repeat until one of the 5 termination conditions is met.
 
 ## Parameters
 

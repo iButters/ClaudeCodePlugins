@@ -244,6 +244,84 @@ commit-message-generator/
 **Quality Score:** 9.2/10 (Excellent)
 </example>
 
+<example>
+**User Input:**
+"Create a plugin that is both fast AND comprehensive for code analysis."
+
+**Questions:**
+1. Which is more important: speed or thoroughness? (For example, is this for CI/CD where speed matters, or for deep audits where comprehensiveness matters?)
+2. Are there specific analysis types you need? (Security, performance, maintainability, style)
+3. What is an acceptable timeout? (<30 seconds for fast, <5 minutes for comprehensive)
+4. Should the plugin have different modes? (Quick mode vs. Deep mode)
+
+**User Answers:**
+1. Prefer thoroughness, but CI/CD integration would be nice
+2. All four types (security, performance, maintainability, style)
+3. <2 minutes for CI/CD, no limit for deep analysis
+4. Yes, two modes would be ideal
+
+**Conflict Resolution:**
+The requirements "fast" and "comprehensive" conflict. Solution:
+- Default mode: **Standard Review** (~1-2 minutes, covers critical issues)
+- Flag `--quick`: **Quick Review** (~30 seconds, only security + basic checks)
+- Flag `--deep`: **Comprehensive Review** (no timeout, all dimensions)
+
+**Generated Structure:**
+```
+code-analyzer/
+|-- SKILL.md
+|-- .claude/commands/
+|   |-- analyze.md (with --quick, --deep flags)
+|   `-- analyze-diff.md
+|-- agents/
+|   |-- security-analyzer.md
+|   |-- performance-analyzer.md
+|   |-- maintainability-analyzer.md
+|   `-- style-analyzer.md
+`-- references/
+    |-- analysis-profiles.md (documents trade-offs)
+    `-- performance-benchmarks.md
+```
+
+**Trade-offs Documented in SKILL.md:**
+- Quick mode: 30s, 70% issue detection
+- Standard mode: 1-2min, 90% issue detection (recommended for CI/CD)
+- Deep mode: No limit, 98% issue detection (for audits)
+
+**Quality Score:** 9.4/10 (Excellent - demonstrates conflict resolution pattern)
+</example>
+
+<example>
+**User Input:**
+"Generate a plugin with three commands in the agents/ folder."
+
+**Error Detection:**
+Commands belong in `.claude/commands/`, not `agents/`. Agents are specialized sub-agents used by commands.
+
+**Clarification Questions:**
+1. Did you mean three **commands** (user-facing actions) or three **agents** (background processors)?
+2. If commands: What should each command do?
+3. If agents: Which command will call them, and what is their specialization?
+
+**User Clarification:**
+"I want three commands: analyze, fix, and validate."
+
+**Corrected Structure:**
+```
+code-quality-plugin/
+|-- SKILL.md
+|-- .claude/commands/
+|   |-- analyze.md
+|   |-- fix.md
+|   `-- validate.md
+```
+
+**Explanation Provided:**
+"I've created three **commands** in `.claude/commands/` (the correct location). Commands are user-facing actions triggered by `/analyze`, `/fix`, `/validate`. If you need background processing agents, those would go in `agents/` and be called by commands."
+
+**Quality Score:** 8.8/10 (Good - demonstrates error correction and user education)
+</example>
+
 <constraints>
 - Maximum 500 lines per generated file
 - Do not automatically create README.md or CHANGELOG.md

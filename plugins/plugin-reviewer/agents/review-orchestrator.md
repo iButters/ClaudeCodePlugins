@@ -37,9 +37,24 @@ Analyze the input systematically.
 ### Content Type Detection
 
 ```python
-def detect_content_type(input_text):
-    if starts_with("---\nname:") or contains("<role>"):
-        return "PLUGIN_FILE"  # SKILL.md or agent
+def detect_content_type(input_text, file_path=None):
+    # File-path based detection (most reliable)
+    if file_path:
+        if file_path.endswith("SKILL.md"):
+            return "SKILL_FILE"  # Use skill-file-evaluator
+        elif "/references/" in file_path or "\\references\\" in file_path:
+            return "REFERENCE_FILE"  # Use reference-file-evaluator
+        elif "/agents/" in file_path or "\\agents\\" in file_path:
+            return "AGENT_FILE"  # Use agent-file-evaluator
+        elif "/commands/" in file_path or "\\commands\\" in file_path:
+            return "COMMAND_FILE"  # Use command-file-evaluator
+    
+    # Content-based detection (fallback)
+    if starts_with("---\nname:") and contains("description:"):
+        if contains("<role>") or contains("<capabilities>"):
+            return "AGENT_FILE"
+        else:
+            return "SKILL_FILE"
     elif contains_code_snippet() and len(input) < 200:
         return "CODE_SNIPPET"
     elif contains_code_snippet() and len(input) >= 200:
@@ -52,6 +67,17 @@ def detect_content_type(input_text):
         return "ARCHITECTURE_DOC"
     else:
         return "GENERIC_PROMPT"
+```
+
+### File Type to Evaluator Mapping
+
+```python
+FILE_TYPE_EVALUATORS = {
+    "SKILL_FILE": "skill-file-evaluator",       # Official docs criteria
+    "REFERENCE_FILE": "reference-file-evaluator", # Reference quality
+    "AGENT_FILE": "agent-file-evaluator",       # Agent prompts (RACCCA, XML tags)
+    "COMMAND_FILE": "command-file-evaluator",   # Command files (workflow, params)
+}
 ```
 
 ### Complexity Assessment
@@ -592,6 +618,34 @@ def generate_roadmap(prioritized_issues, cross_insights, current_score, evaluato
 
 **When to call each evaluator**:
 
+**File-Type Specific Evaluators** (use based on file detection):
+
+Call **Skill File Evaluator** when:
+- File is named `SKILL.md`
+- Content type detected as `SKILL_FILE`
+- Evaluates: Discovery quality, token efficiency, progressive disclosure
+- Does NOT check: `<role>` tags, strict imperative form (these are agent-only)
+
+Call **Reference File Evaluator** when:
+- File is in `references/` directory
+- Content type detected as `REFERENCE_FILE`
+- Evaluates: Discoverability, content density, structure, referenceability
+- Focus: Domain knowledge quality, not instruction quality
+
+Call **Agent File Evaluator** when:
+- File is in `agents/` directory (agent prompts)
+- Content type detected as `AGENT_FILE`
+- Evaluates: `<role>`, `<capabilities>`, `<constraints>`, `<output_format>` tags
+- Full RACCCA framework applies here
+
+Call **Command File Evaluator** when:
+- File is in `commands/` directory (command files)
+- Content type detected as `COMMAND_FILE`
+- Evaluates: Trigger clarity, parameter documentation, workflow steps, output format
+- Focus on user-facing command quality
+
+**Universal Evaluators** (apply to all content types):
+
 Call **Prompt Engineering Evaluator** when:
 - Any input contains instructions (always - foundational)
 - Profile: all profiles include this
@@ -611,11 +665,6 @@ Call **Chain-of-Thought Evaluator** when:
 - Numbered or sequential reasoning is detected
 - Profile: STANDARD, COMPREHENSIVE
 
-Call **Architecture Evaluator** when:
-- System design or component descriptions are present
-- Plugin structure (SKILL.md with multiple files)
-- Profile: COMPREHENSIVE only
-
 Call **Technical Standards Evaluator** when:
 - Plugin files (SKILL.md, commands, agents)
 - RAG or encoding discussions
@@ -625,6 +674,7 @@ Call **Technical Standards Evaluator** when:
 ```
 Delegate to [Evaluator Name] Agent:
 Input: [Relevant portion of original input]
+File Path: [Path to file being evaluated]
 Context: [Why this evaluator is needed]
 Expected Output: [What you need from this evaluator]
 Timeout: 5 minutes

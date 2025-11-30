@@ -153,19 +153,14 @@ public class ConflictException(string message) : Exception(message);
 public class ForbiddenException(string message) : Exception(message);
 
 // Global exception handler
-public class GlobalExceptionHandler : IExceptionHandler
+public class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger) : IExceptionHandler
 {
-    private readonly ILogger<GlobalExceptionHandler> _logger;
-    
-    public GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger) =>
-        _logger = logger;
-    
     public async ValueTask<bool> TryHandleAsync(
         HttpContext context,
         Exception exception,
         CancellationToken ct)
     {
-        _logger.LogError(exception, "Unhandled exception: {Message}", exception.Message);
+        logger.LogError(exception, "Unhandled exception: {Message}", exception.Message);
         
         var problem = exception switch
         {

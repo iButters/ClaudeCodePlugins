@@ -5,7 +5,10 @@
 - `agents/few-shot-evaluator.md` (TIER 2 few-shot scoring methodology)
 - `agents/cot-evaluator.md` (TIER 2 chain-of-thought scoring methodology)
 - `agents/architecture-evaluator.md` (TIER 3 RACCCA framework)
-- `agents/plugin-architecture-evaluator.md` (TIER 3 plugin structure standards)
+- `agents/skill-file-evaluator.md` (SKILL.md validation - official docs criteria)
+- `agents/agent-file-evaluator.md` (agents/*.md validation - XML tags, RACCCA)
+- `agents/command-file-evaluator.md` (commands/*.md validation - workflow, params)
+- `agents/reference-file-evaluator.md` (references/*.md validation)
 - `agents/technical-standards-evaluator.md` (TIER 4 encoding, XML validation)
 - `agents/security-evaluator.md` (TIER 5 OWASP/CWE classifications)
 - All evaluator agents (scoring interpretation and weighting)
@@ -248,18 +251,34 @@ complexity_score = (
 
 ### XML Tag Structuring
 
-**Semantic tags for Claude**:
+**Important**: The `<role>` tag is ONLY for agent files (agents/*.md) - it is mandatory there but forbidden elsewhere.
+
+**Agent files (agents/*.md) - Mandatory XML tags**:
 
 ```markdown
-<role> - Define agent expertise and perspective
+<role> - Define agent expertise and perspective (AGENT-ONLY)
 <capabilities> - List specific skills (3-7 items)
 <constraints> - Scope limitations and boundaries
 <output_format> - Structured output schema
+```
+
+**Common XML tags (any file type including SKILL.md)**:
+
+```markdown
+<capabilities> - List specific skills (3-7 items)
+<constraints> - Scope limitations and boundaries
 <workflow_rules> - Execution logic and conditions
 <delegation_rules> - When to call sub-agents
 <quality_requirements> - Standards to uphold
+<success_criteria> - Measurable success conditions
 <example> - Demonstrations with name attribute
+<security_constraints> - Security-related boundaries
 ```
+
+**SKILL.md specifics**:
+- Frontmatter: `name` and `description` required
+- NO `<role>` tag (this is agent-only)
+- Other XML tags are allowed and encouraged for structure
 
 **Effectiveness**: Improves Claude's understanding of context boundaries.
 
