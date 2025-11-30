@@ -1,6 +1,6 @@
 {
   "name": "serena-mcp",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Serena MCP integration for semantic code understanding and intelligent editing via Language Server Protocol",
   "author": {
     "name": "iButters"

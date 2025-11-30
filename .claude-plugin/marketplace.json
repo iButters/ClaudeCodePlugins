@@ -39,7 +39,7 @@
       "name": "serena-mcp",
       "source": "./plugins/serena-mcp",
       "description": "Serena MCP integration for semantic code understanding and intelligent editing via Language Server Protocol",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": {
         "name": "iButters"
       },
