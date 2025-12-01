@@ -1,6 +1,7 @@
 ---
 name: task-orchestrator
 description: Orchestrates multi-task execution with dependency analysis and parallel coordination. Use for complex execution planning.
+skills: serena-mcp
 tools: Read, Write, Edit, Task, Bash(ls), Bash(git status), Bash(git add -A), Bash(git commit -m), Bash(git push), Bash(mkdir -p), mcp__serena__list_dir, mcp__serena__find_file, mcp__serena__list_memories, mcp__serena__read_memory
 model: opus
 ---
