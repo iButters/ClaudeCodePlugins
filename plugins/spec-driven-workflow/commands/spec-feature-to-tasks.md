@@ -6,15 +6,23 @@ allowed-tools: Read, Write, Edit, Bash(mkdir:*), Bash(ls:*)
 
 # Convert Feature to Tasks
 
+<thinking_instruction>
 Think deeply about how to break down the feature into implementable tasks.
+</thinking_instruction>
 
 ## Input
-- Feature ID: $ARGUMENTS (e.g., FEAT-001)
 
-## Prerequisites
+<input_validation>
+- Feature ID: `$ARGUMENTS` (e.g., FEAT-001)
+- Must match pattern: `FEAT-?\d+`
+- If no feature specified, show error with usage hint
+</input_validation>
+
+<prerequisites>
 - Feature file must exist: `.specs/[project]/features/FEAT-[ID].md`
 - Feature status should be "Approved" (warn if not)
 - `tasks/` directory must exist
+</prerequisites>
 
 ## Process
 
@@ -35,6 +43,7 @@ Read `tasks/index.md`:
 
 ### 3. User Confirmation
 
+<user_confirmation>
 ```
 🔄 Convert Feature to Tasks
 
@@ -61,8 +70,11 @@ Options:
 
 Choice? [1/2/3]
 ```
+</user_confirmation>
 
 ### 4. Generate Tasks
+
+<task_template>
 
 For each EARS requirement, create task(s):
 
@@ -96,6 +108,7 @@ Implement [FR-X] from FEAT-[ID].
 **Completed:** -
 **Review:** -
 ```
+</task_template>
 
 ### 5. Create/Update Wave File
 
@@ -107,6 +120,7 @@ Append tasks to `tasks/wave-[N].md`.
 
 ### 6. Update Task Index
 
+<index_update>
 Update `tasks/index.md`:
 - Add new tasks to task list
 - Update wave information
@@ -119,8 +133,11 @@ Update `tasks/index.md`:
 |---------|-------|--------|
 | FEAT-001 | T15, T16, T17 | ⬜ Not Started |
 ```
+</index_update>
 
 ### 7. Update Feature File
+
+<feature_update>
 
 Update `.specs/[project]/features/FEAT-[ID].md`:
 
@@ -131,8 +148,11 @@ Update `.specs/[project]/features/FEAT-[ID].md`:
 **Integrated Into Requirements:** [x] Yes
 **Status:** Proposed → In Progress
 ```
+</feature_update>
 
 ## Output
+
+<output_format>
 
 ```
 ✅ Feature Converted to Tasks
@@ -161,10 +181,12 @@ Update `.specs/[project]/features/FEAT-[ID].md`:
 🚀 Next: /spec-execute wave 5
    Or: /spec-status
 ```
+</output_format>
 
-## Rules
+<rules>
 - One task per major EARS requirement (combine small ones)
 - Always include test task for features
 - Maintain bidirectional traceability (Feature ↔ Tasks)
 - Update feature status to "In Progress" after conversion
 - Warn if feature is not "Approved" status
+</rules>

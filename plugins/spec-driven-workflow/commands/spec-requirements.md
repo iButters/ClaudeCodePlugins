@@ -6,16 +6,25 @@ allowed-tools: Read, Write, Edit
 
 # Requirements Generation
 
+<thinking_instruction>
 Think deeply about requirements engineering. Use extended thinking to ensure completeness.
+</thinking_instruction>
 
 ## Input
-- Project: $ARGUMENTS or detect from `.specs/`
 
-## Prerequisites
+<input_handling>
+- Project: `$ARGUMENTS` or detect from `.specs/`
+- If no project specified, scan `.specs/` for single project or ask user
+</input_handling>
+
+<prerequisites>
 - `.specs/[project]/idea.md` must have Status: 🟢 Refined
 - If not refined, suggest `/spec-idea` first
+</prerequisites>
 
 ## EARS Notation Reference
+
+<ears_reference>
 
 Use EARS (Easy Approach to Requirements Syntax) for all acceptance criteria:
 
@@ -26,6 +35,7 @@ Use EARS (Easy Approach to Requirements Syntax) for all acceptance criteria:
 | IF...THEN | Conditional | IF password invalid THEN THE SYSTEM SHALL show error |
 | WHERE...SHALL | Feature-specific | WHERE premium user THE SYSTEM SHALL show analytics |
 | THE SYSTEM SHALL | Ubiquitous | THE SYSTEM SHALL encrypt all passwords |
+</ears_reference>
 
 ## Process
 
@@ -38,6 +48,7 @@ Extract from idea.md:
 
 ### 2. Generate Requirements
 
+<requirement_structure>
 For each feature, create:
 
 **User Story:**
@@ -56,8 +67,11 @@ So that [Benefit/Goal]
 - P1 (Must-have): MVP won't work without this
 - P2 (Should-have): Important but not blocking
 - P3 (Nice-to-have): Can wait for v2
+</requirement_structure>
 
 ### 3. Create requirements.md
+
+<template>
 
 ```markdown
 # Requirements Document
@@ -134,15 +148,21 @@ As a [Persona] I want to [Action] so that [Benefit].
 |------|------------|
 | [Term] | [Definition] |
 ```
+</template>
 
 ### 4. Validate with User
+
+<user_validation>
 
 Present summary and ask:
 - Missing requirements?
 - Correct priorities?
 - Clear acceptance criteria?
+</user_validation>
 
 ## Output
+
+<output_format>
 
 ```
 ✅ Requirements generated for "[project]"
@@ -156,9 +176,11 @@ Present summary and ask:
 🚀 Next: /spec-design
    Create technical architecture based on requirements.
 ```
+</output_format>
 
-## Rules
+<rules>
 - Every requirement needs at least 3 EARS criteria
 - All criteria must be testable
 - No vague terms - use specific, measurable values
 - Include both functional AND non-functional requirements
+</rules>

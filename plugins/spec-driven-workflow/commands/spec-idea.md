@@ -6,10 +6,21 @@ allowed-tools: Read, Write, Edit
 
 # Idea Refinement Dialog
 
+<thinking_instruction>
 Think deeply and thoroughly about the project concept. Use extended thinking to explore all angles.
+</thinking_instruction>
 
 ## Input
-- Project: $ARGUMENTS or detect from `.specs/*/idea.md`
+
+<input_handling>
+- Project: `$ARGUMENTS` or detect from `.specs/*/idea.md`
+- If no project specified, scan `.specs/` for single project or ask user
+</input_handling>
+
+<prerequisites>
+- Project directory must exist in `.specs/[project]/`
+- If `idea.md` doesn't exist, create initial version first
+</prerequisites>
 
 ## Process
 
@@ -18,6 +29,7 @@ Read `.specs/[project]/idea.md` to understand current state.
 
 ### 2. Interactive Dialog
 
+<dialog_questions>
 Guide user through these questions (one at a time, adapt based on answers):
 
 **Core Problem:**
@@ -39,16 +51,21 @@ Guide user through these questions (one at a time, adapt based on answers):
 - "Any technical constraints (language, framework, platform)?"
 - "Timeline or budget constraints?"
 - "Integration requirements?"
+</dialog_questions>
 
 ### 3. Synthesize and Update
 
+<synthesis>
 After gathering answers, think deeply about:
 - Core value proposition
 - MVP scope
 - Potential risks
 - Success metrics
+</synthesis>
 
 Update `.specs/[project]/idea.md`:
+
+<template>
 
 ```markdown
 # [Project Name]
@@ -95,8 +112,11 @@ Update `.specs/[project]/idea.md`:
 - Created: [date]
 - Refined: [today]
 ```
+</template>
 
 ## Output
+
+<output_format>
 
 ```
 ✅ Idea refined for "[project]"
@@ -110,9 +130,11 @@ Update `.specs/[project]/idea.md`:
 🚀 Next: /spec-requirements
    Generate detailed requirements from this idea.
 ```
+</output_format>
 
-## Rules
+<rules>
 - Ask ONE question at a time
 - Adapt questions based on previous answers
 - Summarize understanding before updating file
 - Mark any assumptions clearly
+</rules>

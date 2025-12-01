@@ -9,12 +9,17 @@ allowed-tools: Read, Write, Edit, Bash(mkdir:*), Bash(ls:*)
 Collect open bugs and create a dedicated bug-fix wave for execution.
 
 ## Input
-- Project: $ARGUMENTS or detect from `.specs/`
 
-## Prerequisites
+<input_handling>
+- Project: `$ARGUMENTS` or detect from `.specs/`
+- If no project specified, scan `.specs/` for single project or ask user
+</input_handling>
+
+<prerequisites>
 - Project must exist in `.specs/[project]/`
 - At least one open bug in `bugs/`
 - `tasks/` directory must exist
+</prerequisites>
 
 ## Process
 
@@ -36,6 +41,7 @@ Read all bug files in `.specs/[project]/bugs/`:
 
 ### 4. User Confirmation
 
+<user_confirmation>
 ```
 🐛 Bug-Fix Wave Creation
 
@@ -51,8 +57,11 @@ Create wave-bugfix-[N] with these [N] bugs? (y/n)
 
 Or select specific bugs (e.g., "BUG-001, BUG-003"):
 ```
+</user_confirmation>
 
 ### 5. Create Bug-Fix Wave File
+
+<wave_template>
 
 Create `tasks/wave-bugfix-N.md`:
 
@@ -123,8 +132,11 @@ THE SYSTEM SHALL [corrected behavior]
 - [ ] index.md updated
 - [ ] Ready for verification
 ```
+</wave_template>
 
 ### 6. Update Task Index
+
+<index_update>
 
 Add wave to `tasks/index.md`:
 
@@ -135,15 +147,21 @@ Add wave to `tasks/index.md`:
 |------|------|--------|------|
 | Bugfix-1 | [wave-bugfix-1.md](wave-bugfix-1.md) | ⬜ Pending | BUG-001, BUG-003 |
 ```
+</index_update>
 
 ### 7. Update Bug Files
+
+<bug_status_update>
 
 For each included bug, update status:
 ```markdown
 **Status:** Open → In Progress (wave-bugfix-N)
 ```
+</bug_status_update>
 
 ## Output
+
+<output_format>
 
 ```
 ✅ Bug-Fix Wave Created
@@ -166,10 +184,12 @@ For each included bug, update status:
 🚀 Next: /spec-execute wave bugfix-[N]
    Or: /spec-execute (will include in queue)
 ```
+</output_format>
 
-## Rules
+<rules>
 - Bug-fix waves use separate numbering (bugfix-1, bugfix-2, not wave-4)
 - Each bug becomes one task with subtasks
 - Always include regression test subtask
 - Update bug status when added to wave
 - Sort by severity/priority in wave
+</rules>

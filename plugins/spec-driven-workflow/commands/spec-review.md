@@ -6,15 +6,23 @@ allowed-tools: Read, Bash(ls:*), Bash(cat:*), Bash(git diff:*), Task
 
 # Manual Task Review
 
+<thinking_instruction>
 Think deeply about code quality and requirement fulfillment. Use extended thinking for thorough analysis.
+</thinking_instruction>
 
 ## Input
-- Task ID: $ARGUMENTS (required)
+
+<input_validation>
+- Task ID: `$ARGUMENTS` (required)
+- Must match pattern: `T?\d+` (e.g., T3, 3, T12)
+- If no task specified, show error with usage hint
+</input_validation>
 
 ## Process
 
 ### 1. Load Context
 
+<context_loading>
 First, locate the task in wave files:
 1. Read `tasks/index.md` → Find which wave contains the task
 2. Read `tasks/wave-N.md` → Get task definition, acceptance criteria
@@ -23,8 +31,11 @@ Then read supporting context:
 - `.specs/[project]/requirements.md` → Requirements to validate
 - `.specs/[project]/design.md` → Architecture to check
 - Task output files (from task definition)
+</context_loading>
 
 ### 2. Spawn Review Subagents
+
+<review_delegation>
 
 Run parallel reviews using specialized subagents:
 
@@ -71,8 +82,11 @@ Check:
 
 Report PASS/FAIL with details.
 ```
+</review_delegation>
 
 ### 3. Aggregate Results
+
+<result_aggregation>
 
 Collect all review results:
 
@@ -113,8 +127,11 @@ Collect all review results:
 
 **Issues:** [if any]
 ```
+</result_aggregation>
 
 ### 4. Overall Verdict
+
+<verdict_format>
 
 ```
 ═══════════════════════════════════════
@@ -127,8 +144,11 @@ Requirements: [status]
 Architecture: [status]
 Code Quality: [status]
 ```
+</verdict_format>
 
 ### 5. Handle Verdict
+
+<verdict_handling>
 
 **On PASS:**
 ```
@@ -160,8 +180,11 @@ Options:
 
 Choice? [1/2/3]
 ```
+</verdict_handling>
 
 ## Output Format
+
+<output_format>
 
 ```
 ═══════════════════════════════════════
@@ -187,10 +210,12 @@ Choice? [1/2/3]
 [If failed: specific fixes needed]
 [If passed: optional improvements]
 ```
+</output_format>
 
-## Rules
+<rules>
 - Run ALL three review types
 - Be specific about issues (file, line, problem)
 - Provide actionable fix recommendations
 - Update wave file status after review
 - Update index.md progress counts after status change
+</rules>

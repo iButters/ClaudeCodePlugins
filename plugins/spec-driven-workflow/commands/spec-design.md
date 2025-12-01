@@ -6,14 +6,21 @@ allowed-tools: Read, Write, Edit
 
 # Technical Design Generation
 
+<thinking_instruction>
 Think deeply about architecture and design decisions. Use extended thinking to evaluate tradeoffs.
+</thinking_instruction>
 
 ## Input
-- Project: $ARGUMENTS or detect from `.specs/`
 
-## Prerequisites
+<input_handling>
+- Project: `$ARGUMENTS` or detect from `.specs/`
+- If no project specified, scan `.specs/` for single project or ask user
+</input_handling>
+
+<prerequisites>
 - `.specs/[project]/requirements.md` must exist with requirements defined
 - Check idea.md for technical constraints
+</prerequisites>
 
 ## Process
 
@@ -25,6 +32,7 @@ Read requirements.md and extract:
 
 ### 2. Design Decisions
 
+<design_decisions>
 Think deeply about each decision:
 
 **Architecture Style:**
@@ -47,9 +55,11 @@ Think deeply about each decision:
 - Key entities
 - Relationships
 - Storage strategy
+</design_decisions>
 
 ### 3. Create design.md
 
+<template>
 ```markdown
 # Technical Design
 
@@ -138,22 +148,31 @@ Think deeply about each decision:
 | R1 | [Components] | [How addressed] |
 | R2 | [Components] | [How addressed] |
 ```
+</template>
 
 ### 4. Validate Completeness
+
+<validation>
 
 Verify:
 - Every P1 requirement has a component
 - Non-functional requirements addressed
 - No orphan components
+</validation>
 
 ### 5. User Review
+
+<user_review>
 
 Present key decisions and ask:
 - Architecture approach acceptable?
 - Tech stack constraints met?
 - Missing components?
+</user_review>
 
 ## Output
+
+<output_format>
 
 ```
 ✅ Design created for "[project]"
@@ -169,9 +188,11 @@ Present key decisions and ask:
 🚀 Next: /spec-tasks
    Break down design into implementation tasks.
 ```
+</output_format>
 
-## Rules
+<rules>
 - Every requirement must trace to components
 - Document ALL architectural decisions with rationale
 - Include security considerations
 - Keep diagrams simple (ASCII preferred)
+</rules>

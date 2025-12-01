@@ -9,11 +9,16 @@ allowed-tools: Read
 Display all bugs for a project with filtering and summary.
 
 ## Input
-- Project: $ARGUMENTS or detect from `.specs/`
 
-## Prerequisites
+<input_handling>
+- Project: `$ARGUMENTS` or detect from `.specs/`
+- If no project specified, scan `.specs/` for single project or ask user
+</input_handling>
+
+<prerequisites>
 - Project must exist in `.specs/[project]/`
 - Bugs directory should exist (show empty state if not)
+</prerequisites>
 
 ## Process
 
@@ -36,14 +41,18 @@ Read `bugs/index.md` to get overview of all bugs.
 
 ### 4. Categorize Bugs
 
+<status_categories>
 Group by status:
 - 🔴 Open (Critical/High)
 - 🟡 Open (Medium/Low)
 - 🔄 In Progress
 - ✅ Resolved
 - ⬜ Closed
+</status_categories>
 
 ## Output
+
+<output_format>
 
 ```
 ═══════════════════════════════════════
@@ -103,8 +112,11 @@ Group by status:
 - View specific bug: `Read .specs/[project]/bugs/BUG-[ID].md`
 - Edit bug: `Edit .specs/[project]/bugs/BUG-[ID].md`
 ```
+</output_format>
 
 ## Empty State
+
+<empty_state>
 
 ```
 ═══════════════════════════════════════
@@ -115,9 +127,11 @@ Group by status:
 
 To report a bug: /spec-bug [project]
 ```
+</empty_state>
 
-## Rules
+<rules>
 - Show most critical bugs first
 - Group by status for easy scanning
 - Include traceability information
 - Provide actionable next steps
+</rules>

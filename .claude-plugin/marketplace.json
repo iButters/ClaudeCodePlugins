@@ -65,6 +65,16 @@
         "name": "iButters"
       },
       "keywords": ["plugin", "reviewer", "quality-assurance", "multi-agent", "validation", "security"]
+    },
+    {
+      "name": "prompt-refiner",
+      "source": "./plugins/prompt-refiner",
+      "description": "Verfeinert User-Prompts automatisch mit Claude Haiku für bessere Kontextualität und Klarheit",
+      "version": "1.0.0",
+      "author": {
+        "name": "iButters"
+      },
+      "keywords": ["prompt", "refiner", "haiku", "optimization", "context"]
     }
   ]
 }

@@ -6,49 +6,108 @@ allowed-tools: Read
 
 # Project Status
 
+<thinking_instruction>
+Analyze all project files to provide accurate status overview.
+</thinking_instruction>
+
 ## Input
-- Project: $ARGUMENTS or detect from `.specs/`
+
+- Project: `$ARGUMENTS` or detect from `.specs/`
+
+<input_validation>
+Before processing $ARGUMENTS, validate the input:
+
+1. **Sanitize project name:**
+   - Convert to kebab-case (lowercase, hyphens only)
+   - Remove path traversal sequences: `../`, `..\`, `..`
+   - Allow only characters: `[a-z0-9-]`
+
+2. **Auto-detection (if no argument):**
+   - List directories in `.specs/`
+   - Exclude `steering/` from list
+   - If single project → Use it
+   - If multiple → Ask user to specify
+   - If none → Error: "No projects found"
+</input_validation>
 
 ## Process
 
 ### 1. Scan Project Files
-Read spec files and extract:
-- idea.md → Project overview, status
-- requirements.md → Requirements count, priorities
-- design.md → Components, tech stack
-- tasks/index.md → Task status, wave progress (primary source)
-- bugs/index.md → Bug counts by status (if exists)
-- features/index.md → Feature counts by status (if exists)
-- reports/ → Recent wave reports (if exists)
 
-**Note:** Only read index files for status - they contain summaries. Don't load individual files unless details needed.
+<file_scanning>
+Read spec files and extract status:
+
+| File | Extract |
+|------|---------|
+| `idea.md` | Project overview, status |
+| `requirements.md` | Requirements count, priorities |
+| `design.md` | Components, tech stack |
+| `tasks/index.md` | Task status, wave progress (primary source) |
+| `bugs/index.md` | Bug counts by status (if exists) |
+| `features/index.md` | Feature counts by status (if exists) |
+| `reports/` | Recent wave reports (if exists) |
+
+**Performance note:** Only read index files for status - they contain summaries. Don't load individual task/bug/feature files unless specific details needed.
+</file_scanning>
+
+<error_handling>
+Handle missing or corrupted files:
+
+- `idea.md` missing → Show "⚠️ Project not initialized properly"
+- `tasks/index.md` missing → Show "📋 No tasks defined yet"
+- `bugs/index.md` missing → Show "No bug tracking active"
+- `features/index.md` missing → Show "No feature backlog"
+- Parse error → Log warning, show partial data with "⚠️ Some data unavailable"
+</error_handling>
 
 ### 2. Calculate Metrics
 
-```python
-# Metrics to calculate
-total_tasks = count(tasks)
-completed = count(tasks where status == "Completed")
-in_progress = count(tasks where status == "In Progress")
-blocked = count(tasks where status == "Blocked")
-not_started = count(tasks where status == "Not Started")
+<metrics_calculation>
+Calculate the following metrics from parsed data:
 
-progress_pct = (completed / total_tasks) * 100
+**Task Metrics:**
+- Total tasks: Count all tasks in index
+- Completed: Count tasks with status ✅ or "Completed"
+- In Progress: Count tasks with status 🔄 or "In Progress"
+- Blocked: Count tasks with status ❌ or "Blocked"
+- Not Started: Count tasks with status ⬜ or "Not Started"
+- Progress percentage: (Completed / Total) × 100
 
-# By type
-backend_tasks = count(tasks where type == "backend")
-frontend_tasks = count(tasks where type == "frontend")
-# etc.
-```
+**Type Distribution:**
+- Count tasks by type (backend, frontend, database, test, docs)
+- Calculate completion per type
+
+**Wave Status:**
+- For each wave file, determine: Complete / Active / Pending / Blocked
+
+**Bug Metrics:**
+- Open (Critical/High): Count severity Critical or High with status Open
+- Open (Medium/Low): Count severity Medium or Low with status Open
+- In Progress: Count status "In Progress"
+- Resolved: Count status "Resolved" or "Closed"
+
+**Feature Metrics:**
+- Proposed: Count status "Proposed"
+- Approved: Count status "Approved"
+- In Progress: Count status "In Progress"
+- Completed: Count status "Completed"
+</metrics_calculation>
 
 ### 3. Identify Blockers
-Find:
-- Tasks marked as blocked
-- Failed reviews
+
+<blocker_detection>
+Find blocking issues:
+
+- Tasks marked as blocked (❌)
+- Failed reviews in recent reports
 - Missing dependencies
+- Critical/High bugs that may block progress
+- Unresolved issues from previous waves
+</blocker_detection>
 
 ## Output
 
+<output_format>
 ```
 ═══════════════════════════════════════
 📊 PROJECT STATUS: [Name]
@@ -94,7 +153,7 @@ IDEA ──► REQUIREMENTS ──► DESIGN ──► TASKS ──► EXECUTE
 |------|--------|----------|
 | 1 | ✅ Complete | 5/5 |
 | 2 | 🔄 Active | 2/4 |
-| 3 | ⬜ Blocked | 0/6 |
+| 3 | ⬜ Pending | 0/6 |
 
 ## Blockers
 
@@ -176,10 +235,26 @@ IDEA ──► REQUIREMENTS ──► DESIGN ──► TASKS ──► EXECUTE
 - Review task: `/spec-review T5`
 - View wave details: Read `.specs/[project]/tasks/wave-N.md`
 ```
+</output_format>
 
-## Rules
-- Show accurate counts
+<output_error>
+```
+❌ Cannot show status
+
+Reason: [specific reason]
+
+Suggestions:
+- Run `/spec-start [project-name]` to initialize a project
+- Check if `.specs/` directory exists
+```
+</output_error>
+
+<rules>
+- Show accurate counts from index files
 - Highlight blockers prominently
-- Show bugs requiring attention (Critical/High)
-- Show features ready for implementation
-- Suggest next actions
+- Show bugs requiring attention (Critical/High priority)
+- Show features ready for implementation (Approved status)
+- Suggest relevant next actions
+- Handle missing files gracefully with appropriate messages
+- Do not modify any files (read-only command)
+</rules>

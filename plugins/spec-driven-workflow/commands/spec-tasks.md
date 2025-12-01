@@ -6,15 +6,24 @@ allowed-tools: Read, Write, Edit, Bash(mkdir:*)
 
 # Task Planning
 
+<thinking_instruction>
 Think deeply about task decomposition and dependencies. Use extended thinking to optimize execution order.
+</thinking_instruction>
 
 ## Input
-- Project: $ARGUMENTS or detect from `.specs/`
 
-## Prerequisites
+<input_handling>
+- Project: `$ARGUMENTS` or detect from `.specs/`
+- If no project specified, scan `.specs/` for single project or ask user
+</input_handling>
+
+<prerequisites>
 - `.specs/[project]/design.md` must exist with components defined
+</prerequisites>
 
 ## Output Structure
+
+<file_structure>
 
 Create a `tasks/` directory with separate files per wave:
 
@@ -25,6 +34,7 @@ Create a `tasks/` directory with separate files per wave:
 ├── wave-2.md         # Wave 2 tasks
 └── wave-N.md         # Additional waves as needed
 ```
+</file_structure>
 
 ## Process
 
@@ -36,6 +46,7 @@ Extract from design.md:
 
 ### 2. Task Decomposition
 
+<task_structure>
 For each component, define tasks with this structure:
 
 ```markdown
@@ -63,16 +74,22 @@ For each component, define tasks with this structure:
 **Completed:** -
 **Review:** -
 ```
+</task_structure>
 
 ### 3. Dependency Analysis & Wave Assignment
+
+<wave_assignment>
 
 Build dependency graph and assign waves:
 - **Wave 1:** Tasks with no dependencies
 - **Wave 2:** Tasks depending only on Wave 1
 - **Wave 3:** Tasks depending on earlier waves
 - Maximum 4 parallel tasks recommended per wave
+</wave_assignment>
 
 ### 4. Create tasks/index.md
+
+<index_template>
 
 ```markdown
 # Implementation Plan
@@ -132,8 +149,11 @@ Wave 3: T7, T8 (needs W2)
 - Review required after each wave
 - Update index.md after each task completion
 ```
+</index_template>
 
 ### 5. Create tasks/wave-N.md (for each wave)
+
+<wave_template>
 
 ```markdown
 # Wave [N]: [Description]
@@ -199,16 +219,22 @@ Set up database schema with Prisma, create initial migrations.
 - [ ] index.md updated
 - [ ] Ready for Wave [N+1]
 ```
+</wave_template>
 
 ### 6. Validate Plan
+
+<validation>
 
 Check:
 - Every requirement has implementing tasks
 - No circular dependencies
 - Reasonable wave distribution (aim for 3-6 tasks per wave)
 - Clear acceptance criteria linked to requirements
+</validation>
 
 ## Output
+
+<output_format>
 
 ```
 ✅ Task plan created for "[project]"
@@ -228,10 +254,12 @@ Check:
 🚀 Next: /spec-execute
    Or: /spec-execute wave 1
 ```
+</output_format>
 
-## Rules
+<rules>
 - One file per wave (keeps context manageable)
 - Every task must have acceptance criteria linked to requirements
 - Maximum ~200 lines per wave file
 - Update index.md status after any task changes
 - Include file paths for every task
+</rules>

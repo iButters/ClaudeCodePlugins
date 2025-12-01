@@ -9,11 +9,16 @@ allowed-tools: Read
 Display all features for a project with filtering and summary.
 
 ## Input
-- Project: $ARGUMENTS or detect from `.specs/`
 
-## Prerequisites
+<input_handling>
+- Project: `$ARGUMENTS` or detect from `.specs/`
+- If no project specified, scan `.specs/` for single project or ask user
+</input_handling>
+
+<prerequisites>
 - Project must exist in `.specs/[project]/`
 - Features directory should exist (show empty state if not)
+</prerequisites>
 
 ## Process
 
@@ -36,14 +41,18 @@ Read `features/index.md` to get overview of all features.
 
 ### 4. Categorize Features
 
+<status_categories>
 Group by status:
 - 📝 Proposed (new ideas)
 - ✅ Approved (ready for implementation)
 - 🔄 In Progress (being implemented)
 - ✨ Completed
 - ❌ Rejected
+</status_categories>
 
 ## Output
+
+<output_format>
 
 ```
 ═══════════════════════════════════════
@@ -117,8 +126,11 @@ FEAT-002 (Approved) - no dependencies
 - Edit feature: `Edit .specs/[project]/features/FEAT-[ID].md`
 - Approve feature: Edit status to "Approved"
 ```
+</output_format>
 
 ## Empty State
+
+<empty_state>
 
 ```
 ═══════════════════════════════════════
@@ -129,10 +141,12 @@ FEAT-002 (Approved) - no dependencies
 
 To request a feature: /spec-feature [project]
 ```
+</empty_state>
 
-## Rules
+<rules>
 - Show approved features prominently (ready for work)
 - Group by status for easy scanning
 - Show dependency relationships
 - Provide effort summary for planning
 - Include actionable next steps
+</rules>
