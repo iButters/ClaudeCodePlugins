@@ -1,6 +1,6 @@
 {
   "name": "claude-code-plugins",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "owner": {
     "name": "iButters"
   },
@@ -8,12 +8,12 @@
     {
       "name": "spec-driven-workflow",
       "source": "./plugins/spec-driven-workflow",
-      "description": "Specification-Driven Development with multi-agent orchestration for transforming ideas into production-ready software",
+      "description": "Structured development workflow with requirements -> design -> tasks -> implementation using EARS notation",
       "version": "2.2.2",
       "author": {
         "name": "iButters"
       },
-      "keywords": ["workflow", "specification", "multi-agent", "orchestration", "planning", "ears"]
+      "keywords": ["workflow", "specification", "ears", "requirements", "design", "tasks", "implementation"]
     },
     {
       "name": "dotnet-development",
@@ -36,45 +36,24 @@
       "keywords": ["dotnet", "maui", "blazor", "hybrid", "cross-platform", "mobile", "desktop"]
     },
     {
-      "name": "serena-mcp",
-      "source": "./plugins/serena-mcp",
-      "description": "Serena MCP integration for semantic code understanding and intelligent editing via Language Server Protocol",
-      "version": "1.1.0",
-      "author": {
-        "name": "iButters"
-      },
-      "homepage": "https://github.com/oraios/serena",
-      "keywords": ["mcp", "serena", "code-analysis", "lsp", "refactoring"]
-    },
-    {
-      "name": "skill-creator",
-      "source": "./plugins/skill-creator",
-      "description": "Guide for creating effective skills that extend Claude's capabilities with specialized knowledge, workflows, and tool integrations",
-      "version": "1.0.0",
-      "author": {
-        "name": "Anthropic"
-      },
-      "keywords": ["skill", "creator", "workflow", "development"]
-    },
-    {
-      "name": "plugin-reviewer",
-      "source": "./plugins/plugin-reviewer",
-      "description": "Reviews and evaluates Claude Code plugins for quality, security, and best practices through specialized review agents",
-      "version": "1.4.0",
-      "author": {
-        "name": "iButters"
-      },
-      "keywords": ["plugin", "reviewer", "quality-assurance", "multi-agent", "validation", "security"]
-    },
-    {
-      "name": "prompt-refiner",
-      "source": "./plugins/prompt-refiner",
-      "description": "Verfeinert User-Prompts automatisch mit Claude Haiku für bessere Kontextualität und Klarheit",
+      "name": "llm-prompt-optimizer",
+      "source": "./plugins/llm-prompt-optimizer",
+      "description": "Comprehensive prompt engineering plugin for optimizing, analyzing, and creating prompts across multiple LLM models (Claude, GPT, Gemini)",
       "version": "1.0.0",
       "author": {
         "name": "iButters"
       },
-      "keywords": ["prompt", "refiner", "haiku", "optimization", "context"]
+      "keywords": ["prompt", "optimization", "llm", "claude", "gpt", "gemini", "prompt-engineering"]
+    },
+    {
+      "name": "plugin-dev",
+      "source": "./plugins/plugin-dev",
+      "description": "Comprehensive toolkit for developing Claude Code plugins with guidance on hooks, MCP integration, plugin structure, commands, agents, and skills",
+      "version": "0.1.0",
+      "author": {
+        "name": "Daisy Hollman"
+      },
+      "keywords": ["plugin", "development", "hooks", "mcp", "commands", "agents", "skills", "toolkit"]
     }
   ]
 }
