@@ -1,198 +1,196 @@
 ---
-description: Create technical architecture and design based on requirements
-argument-hint: [project-name]
-allowed-tools: Read, Write, Edit
+description: Generate or update technical design based on requirements
+argument-hint: <feature-slug>
+allowed-tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 ---
 
-# Technical Design Generation
+# Generate Technical Design
 
-<thinking_instruction>
-Think deeply about architecture and design decisions. Use extended thinking to evaluate tradeoffs.
-</thinking_instruction>
+You are creating a technical design document for `.specs/$ARGUMENTS/`
 
-## Input
+## Context
 
-<input_handling>
-- Project: `$ARGUMENTS` or detect from `.specs/`
-- If no project specified, scan `.specs/` for single project or ask user
-</input_handling>
+1. Read `.specs/$ARGUMENTS/requirements.md` to understand what needs to be built
+2. Analyze the existing codebase to understand patterns and conventions
+3. Design a solution that fits the existing architecture
 
-<prerequisites>
-- `.specs/[project]/requirements.md` must exist with requirements defined
-- Check idea.md for technical constraints
-</prerequisites>
+## Your Task
 
-## Process
+Generate a comprehensive design document following the EXACT Kiro format:
 
-### 1. Analyze Requirements
-Read requirements.md and extract:
-- All P1 requirements (must support)
-- Non-functional requirements (performance, security)
-- Constraints from idea.md
+### Design Document Structure
 
-### 2. Design Decisions
-
-<design_decisions>
-Think deeply about each decision:
-
-**Architecture Style:**
-- Monolith vs Microservices?
-- Event-driven vs Request-response?
-- Justification based on requirements
-
-**Tech Stack:**
-- Language/Runtime (based on constraints)
-- Framework selection with reasoning
-- Database choice with reasoning
-- Key libraries
-
-**Component Design:**
-- Core components/modules
-- Responsibilities of each
-- Interfaces between them
-
-**Data Model:**
-- Key entities
-- Relationships
-- Storage strategy
-</design_decisions>
-
-### 3. Create design.md
-
-<template>
 ```markdown
-# Technical Design
+# Technical Design Document
 
 ## Overview
-[2-3 sentence architecture summary]
 
-**Project:** [Name]
-**Version:** 1.0
-**Last Updated:** [Date]
+**Purpose**: [What this feature delivers and to whom]
 
-## Architecture Decision Records
+**Users**: [Who will use this feature and how]
 
-### ADR-1: Architecture Style
-**Decision:** [Chosen approach]
-**Context:** [Why this decision was needed]
-**Options Considered:**
-- Option A: [pros/cons]
-- Option B: [pros/cons]
-**Rationale:** [Why chosen option]
+**Impact**: [Effect on overall system/product]
 
-### ADR-2: Tech Stack
-**Decision:** [Stack]
-**Rationale:** [Why]
+### Goals
+- [Primary goal 1]
+- [Primary goal 2]
+- [Primary goal 3]
 
-## Tech Stack
+### Non-Goals
+- [Explicitly out of scope 1]
+- [Explicitly out of scope 2]
 
-| Layer | Technology | Version | Rationale |
-|-------|------------|---------|-----------|
-| Language | [e.g., TypeScript] | [5.x] | [Why] |
-| Runtime | [e.g., Node.js] | [20.x] | [Why] |
-| Framework | [e.g., Express] | [4.x] | [Why] |
-| Database | [e.g., PostgreSQL] | [15.x] | [Why] |
-| ORM | [e.g., Prisma] | [5.x] | [Why] |
+## Architecture
 
-## System Architecture
+### High-Level Architecture
 
+\`\`\`mermaid
+graph TB
+    subgraph [Layer Name]
+        Component1[Component]
+        Component2[Component]
+    end
+
+    Component1 --> Component2
+\`\`\`
+
+### Technology Stack
+
+| Layer | Technology | Rationale |
+|-------|------------|-----------|
+| Frontend | [Tech] | [Why] |
+| Backend | [Tech] | [Why] |
+| Database | [Tech] | [Why] |
+
+### Key Design Decisions
+
+1. **[Decision Title]**
+   - **Context**: [Why this decision was needed]
+   - **Options Considered**: [Alternatives evaluated]
+   - **Decision**: [What was chosen]
+   - **Rationale**: [Why this option]
+   - **Trade-offs**: [Acknowledged downsides]
+
+## System Flows
+
+### [Primary Flow Name]
+
+\`\`\`mermaid
+sequenceDiagram
+    participant User
+    participant Frontend
+    participant API
+    participant Database
+
+    User->>Frontend: Action
+    Frontend->>API: Request
+    API->>Database: Query
+    Database-->>API: Result
+    API-->>Frontend: Response
+    Frontend-->>User: Display
+\`\`\`
+
+## Components and Interfaces
+
+### [Component Name]
+
+**Responsibility**: [What this component does]
+
+**Interface**:
+\`\`\`typescript
+interface ComponentName {
+  methodName(param: Type): Promise<ReturnType>;
+}
+\`\`\`
+
+**Dependencies**:
+- Inbound: [What calls this]
+- Outbound: [What this calls]
+
+## Data Models
+
+### [Entity Name]
+
+\`\`\`typescript
+interface EntityName {
+  id: string;
+  field1: Type;
+  field2: Type;
+  createdAt: Date;
+  updatedAt: Date;
+}
+\`\`\`
+
+### Database Schema
+
+\`\`\`sql
+CREATE TABLE table_name (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  field_name VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE INDEX idx_field ON table_name(field_name);
+\`\`\`
+
+## Error Handling
+
+### Error Categories
+
+| Category | HTTP Status | User Message | Recovery |
+|----------|-------------|--------------|----------|
+| Validation | 400 | [Message] | [Action] |
+| Auth | 401/403 | [Message] | [Action] |
+| Not Found | 404 | [Message] | [Action] |
+| Server | 500 | [Message] | [Action] |
+
+## Testing Strategy
+
+### Unit Tests
+- [What to unit test]
+
+### Integration Tests
+- [What to integration test]
+
+### E2E Tests
+- [End-to-end scenarios]
+
+## Security Considerations
+
+- [Security measure 1]
+- [Security measure 2]
 ```
-[ASCII diagram of components]
-```
 
-## Component Design
+## Important
 
-### Component: [Name]
-**Responsibility:** [Single responsibility]
-**Interfaces:**
-- Input: [What it receives]
-- Output: [What it produces]
-**Dependencies:** [Other components]
-
-### Component: [Name]
-...
-
-## Data Model
-
-### Entity: [Name]
-```
-[Field definitions with types]
-```
-
-### Relationships
-- [Entity A] 1:N [Entity B]
-- [Entity C] N:M [Entity D]
-
-## API Design
-
-### Endpoint: [METHOD /path]
-**Purpose:** [What it does]
-**Request:** [Schema]
-**Response:** [Schema]
-**Errors:** [Error codes]
-
-## Security Design
-- Authentication: [Strategy]
-- Authorization: [Strategy]
-- Data Protection: [Strategy]
-
-## Deployment Architecture
-- Environment: [Dev/Staging/Prod]
-- Infrastructure: [Cloud/On-prem]
-- CI/CD: [Pipeline description]
-
-## Requirements Traceability
-
-| Requirement | Component(s) | Notes |
-|-------------|--------------|-------|
-| R1 | [Components] | [How addressed] |
-| R2 | [Components] | [How addressed] |
-```
-</template>
-
-### 4. Validate Completeness
-
-<validation>
-
-Verify:
-- Every P1 requirement has a component
-- Non-functional requirements addressed
-- No orphan components
-</validation>
-
-### 5. User Review
-
-<user_review>
-
-Present key decisions and ask:
-- Architecture approach acceptable?
-- Tech stack constraints met?
-- Missing components?
-</user_review>
+- Include Mermaid diagrams for architecture and flows
+- Reference requirements when explaining design decisions
+- Analyze existing code patterns and follow them
+- Be specific about interfaces and data models
 
 ## Output
 
-<output_format>
+Write the complete design to `.specs/$ARGUMENTS/design.md`
 
-```
-✅ Design created for "[project]"
+After completion, instruct the user:
+- Review the design document
+- Click "Preview" to see rendered Mermaid diagrams
+- Provide feedback to iterate, OR
+- Run `/spec-tasks $ARGUMENTS` to proceed to task planning
 
-🏗️ Architecture:
-- Style: [approach]
-- Components: [count]
-- Tech Stack: [summary]
+## Error Handling
 
-📊 Traceability:
-- Requirements covered: [X]/[Y]
+Before proceeding, check:
 
-🚀 Next: /spec-tasks
-   Break down design into implementation tasks.
-```
-</output_format>
+1. **If `.specs/$ARGUMENTS/` does not exist:**
+   - Inform user: "Feature '$ARGUMENTS' not found. Run `/spec-init $ARGUMENTS` first."
+   - List existing features in `.specs/`
 
-<rules>
-- Every requirement must trace to components
-- Document ALL architectural decisions with rationale
-- Include security considerations
-- Keep diagrams simple (ASCII preferred)
-</rules>
+2. **If requirements.md does not exist or is empty:**
+   - Inform user: "Requirements not found. Run `/spec-requirements $ARGUMENTS` first to generate requirements."
+   - Do NOT proceed without requirements
+
+3. **If requirements.md lacks EARS criteria:**
+   - Warn user: "Requirements may be incomplete - no EARS acceptance criteria found."
+   - Suggest running `/spec-validate $ARGUMENTS` first

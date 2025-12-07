@@ -1,21 +1,5 @@
 {
   "name": "spec-driven-workflow",
-  "version": "2.3.0",
-  "description": "Specification-Driven Development with multi-agent orchestration for transforming ideas into production-ready software",
-  "author": {
-    "name": "iButters"
-  },
-  "keywords": ["workflow", "specification", "multi-agent", "orchestration", "planning", "ears"],
-  "license": "MIT",
-  "mcpServers": {
-    "serena": {
-      "command": "uvx",
-      "args": [
-        "--from", "git+https://github.com/oraios/serena",
-        "serena", "start-mcp-server",
-        "--context", "ide-assistant",
-        "--project", "."
-      ]
-    }
-  }
+  "version": "1.0.0",
+  "description": "Spec-Driven Development with EARS notation - transforms feature ideas into structured, testable requirements"
 }

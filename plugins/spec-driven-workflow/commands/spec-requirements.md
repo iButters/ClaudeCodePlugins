@@ -1,186 +1,97 @@
 ---
-description: Generate detailed requirements with EARS notation from refined idea
-argument-hint: [project-name]
-allowed-tools: Read, Write, Edit
+description: Generate or update requirements with EARS notation
+argument-hint: <feature-slug>
+allowed-tools: ["Read", "Write", "Edit", "Glob", "Grep"]
 ---
 
-# Requirements Generation
+# Generate Requirements
 
-<thinking_instruction>
-Think deeply about requirements engineering. Use extended thinking to ensure completeness.
-</thinking_instruction>
+You are generating structured requirements for the feature specification at `.specs/$ARGUMENTS/`
 
-## Input
+## Context
 
-<input_handling>
-- Project: `$ARGUMENTS` or detect from `.specs/`
-- If no project specified, scan `.specs/` for single project or ask user
-</input_handling>
+First, read the existing `.specs/$ARGUMENTS/requirements.md` file if it exists to understand the current state.
 
-<prerequisites>
-- `.specs/[project]/idea.md` must have Status: 🟢 Refined
-- If not refined, suggest `/spec-idea` first
-</prerequisites>
+If this is a fresh spec, ask the user to describe what they want to build.
 
-## EARS Notation Reference
+## Your Task
 
-<ears_reference>
+Generate comprehensive requirements following the EXACT Kiro format:
 
-Use EARS (Easy Approach to Requirements Syntax) for all acceptance criteria:
-
-| Pattern | Usage | Example |
-|---------|-------|---------|
-| WHEN...SHALL | Event-driven | WHEN user clicks login THE SYSTEM SHALL validate credentials |
-| WHILE...SHALL | State-driven | WHILE offline THE SYSTEM SHALL queue requests |
-| IF...THEN | Conditional | IF password invalid THEN THE SYSTEM SHALL show error |
-| WHERE...SHALL | Feature-specific | WHERE premium user THE SYSTEM SHALL show analytics |
-| THE SYSTEM SHALL | Ubiquitous | THE SYSTEM SHALL encrypt all passwords |
-</ears_reference>
-
-## Process
-
-### 1. Analyze Idea
-Extract from idea.md:
-- Core features from "Must Have"
-- User personas
-- Constraints
-- Success metrics
-
-### 2. Generate Requirements
-
-<requirement_structure>
-For each feature, create:
-
-**User Story:**
-```
-As a [Persona]
-I want to [Action/Feature]
-So that [Benefit/Goal]
-```
-
-**EARS Acceptance Criteria:**
-- At least 3 testable criteria per requirement
-- Include happy path AND error cases
-- Use measurable values (not "fast" but "< 2 seconds")
-
-**Priority:**
-- P1 (Must-have): MVP won't work without this
-- P2 (Should-have): Important but not blocking
-- P3 (Nice-to-have): Can wait for v2
-</requirement_structure>
-
-### 3. Create requirements.md
-
-<template>
+### Requirements Document Structure
 
 ```markdown
 # Requirements Document
 
 ## Introduction
-[2-3 sentence overview from idea.md]
 
-**Project:** [Name]
-**Version:** 1.0
-**Status:** Draft
-**Last Updated:** [Date]
+[2-3 sentences describing the feature, its purpose, and the problem it solves]
 
-## Personas
+## Requirements
 
-### [Persona Name]
-- **Description:** [Who]
-- **Goals:** [What they want]
-- **Pain Points:** [Current problems]
+### Requirement 1: [Descriptive Title]
 
-## Requirements Overview
+**Objective:** As a [user role], I want [feature/capability], so that [benefit/value]
 
-| ID | Feature | Priority | Status |
-|----|---------|----------|--------|
-| R1 | [Name] | P1 | Draft |
-| R2 | [Name] | P1 | Draft |
+#### Acceptance Criteria
 
-## Detailed Requirements
+1. WHEN [trigger event] THE [System] SHALL [expected behavior]
+2. IF [condition] THEN THE [System] SHALL [expected behavior]
+3. WHILE [ongoing state] THE [System] SHALL [continuous behavior]
+4. WHERE [context/feature present] THE [System] SHALL [behavior]
+5. IF [error/edge case] THEN THE [System] SHALL [error handling]
 
-### R1: [Feature Name]
+### Requirement 2: [Descriptive Title]
 
-**User Story:**
-As a [Persona] I want to [Action] so that [Benefit].
+**Objective:** As a [user role], I want [feature/capability], so that [benefit/value]
 
-**Priority:** P1 - Must-have
+#### Acceptance Criteria
 
-**Acceptance Criteria:**
-
-1. WHEN [trigger]
-   THE SYSTEM SHALL [behavior]
-
-2. WHEN [trigger]  
-   THE SYSTEM SHALL [behavior]
-
-3. IF [error condition]
-   THEN THE SYSTEM SHALL [error handling]
-
-**Notes:**
-- [Implementation hints]
-
----
-
-### R2: [Feature Name]
-...
-
-## Non-Functional Requirements
-
-### Performance
-- THE SYSTEM SHALL respond within [X] seconds under normal load
-- THE SYSTEM SHALL support [Y] concurrent users
-
-### Security
-- THE SYSTEM SHALL encrypt sensitive data at rest
-- THE SYSTEM SHALL require authentication for [actions]
-
-### Usability
-- THE SYSTEM SHALL work on mobile devices
-- THE SYSTEM SHALL meet WCAG 2.1 AA standards
-
-## Out of Scope
-- [Explicit exclusions from idea.md]
-
-## Glossary
-| Term | Definition |
-|------|------------|
-| [Term] | [Definition] |
+1. WHEN ... THE [System] SHALL ...
+[continue pattern]
 ```
-</template>
 
-### 4. Validate with User
+## EARS Notation Rules (STRICT)
 
-<user_validation>
+You MUST use these exact patterns. No variations allowed:
 
-Present summary and ask:
-- Missing requirements?
-- Correct priorities?
-- Clear acceptance criteria?
-</user_validation>
+| Pattern | Syntax | When to Use |
+|---------|--------|-------------|
+| **Ubiquitous** | `THE [System] SHALL [behavior]` | Always-true requirements |
+| **Event-Driven** | `WHEN [event] THE [System] SHALL [response]` | Triggered behaviors |
+| **State-Driven** | `WHILE [state] THE [System] SHALL [behavior]` | Ongoing conditions |
+| **Optional Feature** | `WHERE [feature] THE [System] SHALL [behavior]` | Feature-dependent |
+| **Unwanted Behavior** | `IF [condition] THEN THE [System] SHALL [response]` | Error handling, edge cases |
+| **Complex** | `WHILE [state] WHEN [event] THE [System] SHALL [response]` | Multi-condition |
+
+## Strict Validation Rules
+
+1. Keywords MUST be UPPERCASE: WHEN, THE, SHALL, IF, THEN, WHILE, WHERE
+2. NEVER use "should", "must", "will" - ONLY use "SHALL"
+3. NEVER use "the system" lowercase - ALWAYS "THE [System]"
+4. Every criterion must be specific and testable
+5. Cover error cases and edge cases with IF/THEN patterns
 
 ## Output
 
-<output_format>
+Write the complete requirements to `.specs/$ARGUMENTS/requirements.md`
 
-```
-✅ Requirements generated for "[project]"
+After completion, instruct the user:
+- Review the requirements carefully
+- Provide feedback to iterate, OR
+- Run `/spec-design $ARGUMENTS` to proceed to design phase
 
-📊 Summary:
-- P1 (Must-have): [X] requirements
-- P2 (Should-have): [Y] requirements  
-- P3 (Nice-to-have): [Z] requirements
-- Total Acceptance Criteria: [N]
+## Error Handling
 
-🚀 Next: /spec-design
-   Create technical architecture based on requirements.
-```
-</output_format>
+Before proceeding, check:
 
-<rules>
-- Every requirement needs at least 3 EARS criteria
-- All criteria must be testable
-- No vague terms - use specific, measurable values
-- Include both functional AND non-functional requirements
-</rules>
+1. **If `.specs/` directory does not exist:**
+   - Inform user: "No specs directory found. Run `/spec-init <feature-name>` first to create a new feature specification."
+
+2. **If `.specs/$ARGUMENTS/` does not exist:**
+   - Inform user: "Feature '$ARGUMENTS' not found. Run `/spec-init $ARGUMENTS` to create it, or check the feature slug."
+   - List existing features: Show directories in `.specs/`
+
+3. **If requirements.md is empty (only template):**
+   - Ask user to describe what they want to build
+   - Do NOT proceed without user input

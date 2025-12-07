@@ -1,8 +1,0 @@
-{
-  "name": "prompt-refiner",
-  "description": "Verfeinert User-Prompts automatisch mit Claude Haiku für bessere Kontextualität und Klarheit. Ignoriert reine Slash-Commands.",
-  "version": "1.0.0",
-  "author": {
-    "name": "Claude Code User"
-  }
-}

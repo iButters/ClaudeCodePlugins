@@ -1,265 +1,127 @@
 ---
-description: Create implementation task breakdown with dependencies and wave-based file structure
-argument-hint: [project-name]
-allowed-tools: Read, Write, Edit, Bash(mkdir:*)
+description: Generate implementation tasks based on requirements and design
+argument-hint: <feature-slug>
+allowed-tools: ["Read", "Write", "Edit", "Glob"]
 ---
 
-# Task Planning
+# Generate Implementation Tasks
 
-<thinking_instruction>
-Think deeply about task decomposition and dependencies. Use extended thinking to optimize execution order.
-</thinking_instruction>
+You are creating an implementation plan for `.specs/$ARGUMENTS/`
 
-## Input
+## Context
 
-<input_handling>
-- Project: `$ARGUMENTS` or detect from `.specs/`
-- If no project specified, scan `.specs/` for single project or ask user
-</input_handling>
+1. Read `.specs/$ARGUMENTS/requirements.md` to understand WHAT needs to be built
+2. Read `.specs/$ARGUMENTS/design.md` to understand HOW it should be built
+3. Break down into discrete, implementable tasks
 
-<prerequisites>
-- `.specs/[project]/design.md` must exist with components defined
-</prerequisites>
+## Your Task
 
-## Output Structure
+Generate a comprehensive task list following the EXACT Kiro format:
 
-<file_structure>
-
-Create a `tasks/` directory with separate files per wave:
-
-```
-.specs/[project]/tasks/
-├── index.md          # Overview & status summary
-├── wave-1.md         # Wave 1 tasks (no dependencies)
-├── wave-2.md         # Wave 2 tasks
-└── wave-N.md         # Additional waves as needed
-```
-</file_structure>
-
-## Process
-
-### 1. Analyze Design
-Extract from design.md:
-- All components
-- Dependencies between components
-- Tech stack (affects task type)
-
-### 2. Task Decomposition
-
-<task_structure>
-For each component, define tasks with this structure:
-
-```markdown
-## T[N]: [Task Name]
-
-**Type:** [backend|frontend|database|test|docs]
-**Component:** [From design.md]
-**Priority:** P1
-**Effort:** [S|M|L|XL]
-
-**Description:**
-[What needs to be done]
-
-**Subtasks:**
-- [ ] [N].1: [Subtask 1]
-- [ ] [N].2: [Subtask 2]
-
-**Acceptance Criteria:**
-- [ ] [Criterion linked to requirement]
-
-**Files:**
-- `path/to/file.ts` (new)
-
-**Status:** ⬜ Not Started
-**Completed:** -
-**Review:** -
-```
-</task_structure>
-
-### 3. Dependency Analysis & Wave Assignment
-
-<wave_assignment>
-
-Build dependency graph and assign waves:
-- **Wave 1:** Tasks with no dependencies
-- **Wave 2:** Tasks depending only on Wave 1
-- **Wave 3:** Tasks depending on earlier waves
-- Maximum 4 parallel tasks recommended per wave
-</wave_assignment>
-
-### 4. Create tasks/index.md
-
-<index_template>
+### Tasks Document Structure
 
 ```markdown
 # Implementation Plan
 
-## Overview
-**Project:** [Name]
-**Total Tasks:** [N]
-**Waves:** [W]
-**Created:** [Date]
+## Task List
 
-## Progress
+- [ ] 1. [High-level phase/component name]
+  - [ ] 1.1 [Specific implementable task]
+    - [Detailed action item 1]
+    - [Detailed action item 2]
+    - [Detailed action item 3]
+    - _Requirements: Req 1, Req 2_
+  - [ ] 1.2 [Specific implementable task]
+    - [Detailed action item 1]
+    - [Detailed action item 2]
+    - _Requirements: Req 1_
 
-| Wave | Description | Total | ✅ | 🔄 | ⬜ | ❌ |
-|------|-------------|-------|----|----|----|----|
-| 1 | Foundation | [n] | 0 | 0 | [n] | 0 |
-| 2 | Core Features | [n] | 0 | 0 | [n] | 0 |
-| 3 | Integration | [n] | 0 | 0 | [n] | 0 |
+- [ ] 2. [Next high-level phase/component]
+  - [ ] 2.1 [Specific implementable task]
+    - [Detailed action item 1]
+    - [Detailed action item 2]
+    - _Requirements: Req 3_
+  - [ ] 2.2 [Specific implementable task]
+    - [Detailed action item 1]
+    - [Detailed action item 2]
+    - _Requirements: Req 3, Req 4_
 
-**Overall:** 0/[N] (0%)
+- [ ] 3. [Integration Phase]
+  - [ ] 3.1 [Integration task]
+    - [Detailed action item]
+    - _Requirements: Req 2, Req 4_
 
-## Dependency Graph
+- [ ] 4. [Testing Phase]
+  - [ ] 4.1 [Unit tests for component X]
+    - [Test: Verify behavior A]
+    - [Test: Verify behavior B]
+    - [Test: Verify error handling]
+    - _Requirements: All_
+  - [ ] 4.2 [Integration tests]
+    - [Test: End-to-end flow A]
+    - [Test: End-to-end flow B]
+    - _Requirements: All_
 
+## Requirements Coverage
+
+| Requirement | Covered By Tasks |
+|-------------|------------------|
+| Req 1: [Title] | 1.1, 1.2, 4.1 |
+| Req 2: [Title] | 1.1, 3.1, 4.1 |
+| Req 3: [Title] | 2.1, 2.2, 4.1 |
+| Req 4: [Title] | 2.2, 3.1, 4.2 |
 ```
-Wave 1: T1, T2, T3 (parallel, no deps)
-    ↓
-Wave 2: T4, T5, T6 (parallel, needs W1)
-    ↓
-Wave 3: T7, T8 (needs W2)
-```
 
-## Wave Files
+## Task Guidelines
 
-| Wave | File | Status | Tasks |
-|------|------|--------|-------|
-| 1 | [wave-1.md](wave-1.md) | ⬜ Pending | T1, T2, T3 |
-| 2 | [wave-2.md](wave-2.md) | ⬜ Blocked | T4, T5, T6 |
-| 3 | [wave-3.md](wave-3.md) | ⬜ Blocked | T7, T8 |
+### Numbering
+- Major phases: `1.`, `2.`, `3.`
+- Sub-tasks: `1.1`, `1.2`, `2.1`
 
-## Task Index
+### Checkboxes
+- Use `- [ ]` for all uncompleted tasks
+- Use `- [x]` for completed tasks (only after implementation)
 
-| ID | Task | Type | Wave | Status |
-|----|------|------|------|--------|
-| T1 | [Name] | database | 1 | ⬜ |
-| T2 | [Name] | backend | 1 | ⬜ |
-| T3 | [Name] | frontend | 1 | ⬜ |
-| T4 | [Name] | backend | 2 | ⬜ |
+### Granularity
+- Each sub-task (X.Y) should be completable in ~30-60 minutes
+- If larger, break into more sub-tasks
 
-## Requirements Traceability
+### Traceability
+- Every sub-task MUST have `_Requirements: ..._` footer
+- Reference requirement numbers from requirements.md
 
-| Requirement | Tasks |
-|-------------|-------|
-| R1 | T1, T4, T7 |
-| R2 | T2, T5, T7 |
-
-## Execution Notes
-- Max 4 parallel tasks per wave
-- Review required after each wave
-- Update index.md after each task completion
-```
-</index_template>
-
-### 5. Create tasks/wave-N.md (for each wave)
-
-<wave_template>
-
-```markdown
-# Wave [N]: [Description]
-
-## Status
-- **State:** ⬜ Pending | 🔄 In Progress | ✅ Complete
-- **Dependencies:** [Wave N-1 or "None"]
-- **Tasks:** [X] total, [Y] complete
-
-## Task Summary
-
-| ID | Task | Type | Status | Effort |
-|----|------|------|--------|--------|
-| T1 | Database Schema | database | ⬜ | M |
-| T2 | Auth Setup | backend | ⬜ | M |
-
----
-
-## T1: Database Schema
-
-**Type:** database
-**Component:** Data Layer
-**Priority:** P1
-**Effort:** M
-
-**Description:**
-Set up database schema with Prisma, create initial migrations.
-
-**Subtasks:**
-- [ ] 1.1: Initialize Prisma
-- [ ] 1.2: Define User model
-- [ ] 1.3: Define [Entity] model
-- [ ] 1.4: Create migration
-- [ ] 1.5: Add seed data
-
-**Acceptance Criteria:**
-- [ ] Schema matches design.md data model (R1.1)
-- [ ] Migration runs without errors (R1.2)
-- [ ] Seed data creates test records (R1.3)
-
-**Files:**
-- `prisma/schema.prisma` (new)
-- `prisma/migrations/` (new)
-- `prisma/seed.ts` (new)
-
-**Status:** ⬜ Not Started
-**Completed:** -
-**Review:** -
-
----
-
-## T2: Auth Setup
-
-**Type:** backend
-...
-
----
-
-## Wave Completion Checklist
-
-- [ ] All tasks completed
-- [ ] All reviews passed
-- [ ] index.md updated
-- [ ] Ready for Wave [N+1]
-```
-</wave_template>
-
-### 6. Validate Plan
-
-<validation>
-
-Check:
-- Every requirement has implementing tasks
-- No circular dependencies
-- Reasonable wave distribution (aim for 3-6 tasks per wave)
-- Clear acceptance criteria linked to requirements
-</validation>
+### Sequencing Order
+1. Infrastructure/setup first
+2. Data models and database
+3. Core business logic
+4. API endpoints
+5. Frontend components
+6. Integration
+7. Testing (always last)
 
 ## Output
 
-<output_format>
+Write the complete task list to `.specs/$ARGUMENTS/tasks.md`
 
-```
-✅ Task plan created for "[project]"
+After completion, instruct the user:
+- Review the implementation plan
+- Provide feedback to adjust task breakdown, OR
+- Run `/spec-implement $ARGUMENTS 1.1` to start implementing the first task
 
-📁 Created:
-.specs/[project]/tasks/
-├── index.md      (overview)
-├── wave-1.md     ([X] tasks)
-├── wave-2.md     ([Y] tasks)
-└── wave-3.md     ([Z] tasks)
+## Error Handling
 
-📊 Summary:
-- Total Tasks: [N]
-- Waves: [W]
-- By Type: Backend [n], Frontend [n], Database [n], Test [n], Docs [n]
+Before proceeding, check:
 
-🚀 Next: /spec-execute
-   Or: /spec-execute wave 1
-```
-</output_format>
+1. **If `.specs/$ARGUMENTS/` does not exist:**
+   - Inform user: "Feature '$ARGUMENTS' not found. Run `/spec-init $ARGUMENTS` first."
 
-<rules>
-- One file per wave (keeps context manageable)
-- Every task must have acceptance criteria linked to requirements
-- Maximum ~200 lines per wave file
-- Update index.md status after any task changes
-- Include file paths for every task
-</rules>
+2. **If requirements.md does not exist:**
+   - Inform user: "Requirements not found. Run `/spec-requirements $ARGUMENTS` first."
+
+3. **If design.md does not exist:**
+   - Inform user: "Design document not found. Run `/spec-design $ARGUMENTS` first to create the technical design."
+   - Do NOT proceed without design - tasks depend on design decisions
+
+4. **Workflow enforcement:**
+   - The correct order is: init -> requirements -> design -> tasks
+   - Skipping steps leads to incomplete or incorrect task plans

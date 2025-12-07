@@ -1,7 +1,0 @@
-# Ensure consistent line endings and encoding for markdown files
-*.md text eol=lf encoding=utf-8
-
-# YAML and JSON files
-*.yaml text eol=lf encoding=utf-8
-*.yml text eol=lf encoding=utf-8
-*.json text eol=lf encoding=utf-8
