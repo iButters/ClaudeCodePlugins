@@ -56,8 +56,8 @@
       "keywords": ["plugin", "development", "hooks", "mcp", "commands", "agents", "skills", "toolkit"]
     },
     {
-      "name": "ui-kit-designer",
-      "source": "./plugins/ui-kit-designer",
+      "name": "ui-kit-generator",
+      "source": "./plugins/ui-kit-generator",
       "description": "Interactive UI-Kit generator using Atomic Design principles (Atoms → Molecules → Organisms → Templates → Pages). Features intelligent planning agent, parallel component generation via subagents, and design system creation with automatic dependency resolution.",
       "version": "1.1.0",
       "author": {
