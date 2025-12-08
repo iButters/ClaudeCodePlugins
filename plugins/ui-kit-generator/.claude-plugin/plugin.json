@@ -1,6 +1,6 @@
 {
   "name": "ui-kit-generator",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Interaktive Erstellung von UI-Kits nach Atomic Design Prinzipien mit geführter Konversation und automatisierter Komponenten-Generierung",
   "author": {
     "name": "Claude Code Plugin"
