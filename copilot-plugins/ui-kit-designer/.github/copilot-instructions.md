@@ -1,6 +1,9 @@
 ---
 description: "UI Kit Designer and Blazor Component Generator - create beautiful, interactive UI designs and convert them to production-ready Blazor components"
-applyTo: "**/*.html, **/*.razor, **/*.css"
+applyTo: 
+  - "**/*.html"
+  - "**/*.razor"
+  - "**/*.css"
 title: "UI Kit Design Expert"
 ---
 

@@ -1,6 +1,9 @@
 ---
 description: "Expert guidance for .NET MAUI Blazor Hybrid development - building cross-platform apps combining native capabilities with Blazor UI"
-applyTo: "**/*.razor, **/*.xaml, **/*.cs"
+applyTo: 
+  - "**/*.razor"
+  - "**/*.xaml"
+  - "**/*.cs"
 title: ".NET MAUI Blazor Hybrid Expert"
 ---
 

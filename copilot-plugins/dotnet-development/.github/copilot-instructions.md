@@ -1,6 +1,9 @@
 ---
 description: "Expert guidance for .NET development with Domain-Driven Design, SOLID principles, and modern C# practices"
-applyTo: "**/*.cs, **/*.csproj, **/*.sln"
+applyTo: 
+  - "**/*.cs"
+  - "**/*.csproj"
+  - "**/*.sln"
 title: ".NET Development Expert"
 ---
 
