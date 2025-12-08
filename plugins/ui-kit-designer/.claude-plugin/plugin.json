@@ -1,0 +1,20 @@
+{
+  "name": "ui-kit-designer",
+  "version": "1.0.0",
+  "description": "A powerful plugin for iterative front-end design that generates beautiful, interactive UI Kit HTML files for mobile and web applications. Includes agents for design creation, review, and Blazor component generation.",
+  "author": {
+    "name": "Claude Code Plugins"
+  },
+  "keywords": [
+    "ui",
+    "design",
+    "blazor",
+    "components",
+    "ui-kit",
+    "front-end",
+    "mockup",
+    "prototype",
+    "design-system"
+  ],
+  "license": "MIT"
+}
