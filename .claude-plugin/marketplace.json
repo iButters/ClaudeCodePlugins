@@ -54,6 +54,16 @@
         "name": "Daisy Hollman"
       },
       "keywords": ["plugin", "development", "hooks", "mcp", "commands", "agents", "skills", "toolkit"]
+    },
+    {
+      "name": "ui-kit-designer",
+      "source": "./plugins/ui-kit-designer",
+      "description": "A powerful plugin for iterative front-end design that generates beautiful, interactive UI Kit HTML files for mobile and web applications. Includes agents for design creation, review, and Blazor component generation.",
+      "version": "1.0.0",
+      "author": {
+        "name": "iButters"
+      },
+      "keywords": ["ui", "design", "blazor", "components", "ui-kit", "front-end", "mockup", "prototype", "design-system"]
     }
   ]
 }
