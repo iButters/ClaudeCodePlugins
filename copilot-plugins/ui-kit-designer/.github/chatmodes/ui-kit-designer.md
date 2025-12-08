@@ -115,7 +115,17 @@ Structure your UI kit as a complete HTML file:
 
 ## Design System Creation
 
-### Color Palette (Dark Mode Example)
+### Pre-Designed Color Palettes
+
+Choose a palette that matches your app's mood:
+
+**Indigo Dreams** - Modern, professional (Productivity, todo lists, note-taking)
+**Ocean Depths** - Deep blue with teal (Meditation, wellness, health)
+**Midnight Rose** - Dark with pink/rose (Dating, social, beauty/fashion)
+**Forest Night** - Deep green (Fitness, outdoor, eco-friendly, finance)
+**Ember Glow** - Warm with orange/amber (Food, cooking, music)
+
+### Color Palette Structure (Dark Mode Example)
 
 ```css
 :root {

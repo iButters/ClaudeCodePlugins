@@ -75,23 +75,75 @@ Define semantic colors for:
 - **Background**: Page background
 - **Text**: Primary, secondary, disabled text
 
-**Example Palette (Dark Mode)**:
+#### Pre-Designed Color Palettes
+
+Choose a palette that matches your app's mood and purpose:
+
+**Indigo Dreams (Default)** - Modern, professional, calming
 ```css
 :root {
-  --primary: #6366f1;
-  --primary-hover: #5558e3;
-  --secondary: #8b5cf6;
-  --accent: #ec4899;
-  --success: #10b981;
-  --warning: #f59e0b;
-  --error: #ef4444;
-  --surface: rgba(30, 30, 46, 0.8);
-  --background: #1a1a2e;
-  --text-primary: #ffffff;
-  --text-secondary: #a1a1aa;
-  --border: rgba(255, 255, 255, 0.1);
+  --bg-primary: #0D0D1A;
+  --bg-secondary: #1A1A2E;
+  --bg-tertiary: #252540;
+  --primary: #6366F1;
+  --primary-gradient: linear-gradient(135deg, #6366F1, #8B5CF6);
+  --accent: #8B5CF6;
+  --success: #22C55E;
+  --warning: #F59E0B;
+  --error: #EF4444;
+  --text-primary: #FFFFFF;
+  --text-secondary: #94A3B8;
 }
 ```
+Best for: Productivity apps, todo lists, note-taking, project management
+
+**Ocean Depths** - Deep blue with teal accents
+```css
+:root {
+  --bg-primary: #0A1628;
+  --bg-secondary: #132337;
+  --primary: #14B8A6;
+  --primary-gradient: linear-gradient(135deg, #14B8A6, #06B6D4);
+  --accent: #06B6D4;
+}
+```
+Best for: Meditation apps, wellness, sleep trackers, health apps
+
+**Midnight Rose** - Dark theme with pink/rose accents
+```css
+:root {
+  --bg-primary: #18101C;
+  --bg-secondary: #261A2D;
+  --primary: #EC4899;
+  --primary-gradient: linear-gradient(135deg, #EC4899, #A855F7);
+  --accent: #A855F7;
+}
+```
+Best for: Dating apps, social apps, beauty/fashion, lifestyle
+
+**Forest Night** - Deep green with nature vibes
+```css
+:root {
+  --bg-primary: #0D1512;
+  --bg-secondary: #162420;
+  --primary: #22C55E;
+  --primary-gradient: linear-gradient(135deg, #22C55E, #10B981);
+  --accent: #10B981;
+}
+```
+Best for: Fitness apps, outdoor apps, eco-friendly apps, finance
+
+**Ember Glow** - Warm dark theme with orange/amber accents
+```css
+:root {
+  --bg-primary: #1A1410;
+  --bg-secondary: #2A211A;
+  --primary: #F59E0B;
+  --primary-gradient: linear-gradient(135deg, #F59E0B, #EF4444);
+  --accent: #EF4444;
+}
+```
+Best for: Food/restaurant apps, cooking apps, music/entertainment
 
 #### Typography Scale
 
@@ -153,26 +205,103 @@ Define semantic colors for:
 
 ### 4. Component Library
 
-Design reusable components with all states:
+Design reusable components with all states. Use glassmorphism and modern styling.
 
-#### Button Component
+#### Stats Card (Dashboard Widget)
 ```html
-<button class="btn btn-primary">
-  Primary Button
-</button>
+<div style="margin: 20px; padding: 24px; background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);">
+  <p style="color: #94A3B8; font-size: 14px; margin: 0 0 8px 0;">Good morning! 👋</p>
+  <p style="color: white; font-size: 20px; font-weight: 600; margin: 0 0 16px 0;">You have 5 tasks today</p>
+  <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden;">
+    <div style="width: 60%; height: 100%; background: linear-gradient(90deg, #6366F1 0%, #22C55E 100%); border-radius: 4px;"></div>
+  </div>
+</div>
+```
+
+#### Feature Card with Icon
+```html
+<div style="background: rgba(139,92,246,0.15); border-radius: 16px; border: 1px solid rgba(139,92,246,0.3); padding: 20px;">
+  <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+    <span style="font-size: 24px;">🎯</span>
+    <div>
+      <p style="color: white; font-size: 15px; font-weight: 600; margin: 0;">Feature Title</p>
+      <p style="color: #A5B4FC; font-size: 13px; margin: 4px 0 0;">Feature description</p>
+    </div>
+  </div>
+  <div style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
+    <span style="color: white; font-size: 14px; font-weight: 500;">Action button</span>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A5B4FC" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+  </div>
+</div>
+```
+
+#### Selectable Cards
+```html
+<!-- Selected State -->
+<div style="flex: 1; padding: 12px; background: #6366F1; border-radius: 12px; text-align: center; cursor: pointer;">
+  <span style="font-size: 20px;">🌅</span>
+  <p style="color: white; font-size: 12px; margin: 6px 0 0; font-weight: 500;">Morning</p>
+</div>
+
+<!-- Unselected State -->
+<div style="flex: 1; padding: 12px; background: rgba(255,255,255,0.08); border-radius: 12px; text-align: center; cursor: pointer;">
+  <span style="font-size: 20px;">🌙</span>
+  <p style="color: #94A3B8; font-size: 12px; margin: 6px 0 0;">Evening</p>
+</div>
+```
+
+#### List Item with Icon
+```html
+<div style="padding: 16px 20px; display: flex; align-items: center; gap: 16px; border-bottom: 1px solid rgba(255,255,255,0.06);">
+  <div style="width: 40px; height: 40px; border-radius: 12px; background: linear-gradient(135deg, #6366F1, #8B5CF6); display: flex; align-items: center; justify-content: center;">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+      <!-- Icon SVG path -->
+    </svg>
+  </div>
+  <div style="flex: 1; min-width: 0;">
+    <p style="color: white; font-size: 15px; font-weight: 500; margin: 0;">Item Title</p>
+    <p style="color: #64748B; font-size: 13px; margin: 2px 0 0;">Item description</p>
+  </div>
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+</div>
+```
+
+#### Todo Item (Unchecked)
+```html
+<div style="margin: 0 20px 12px; padding: 16px 20px; background: rgba(255,255,255,0.06); border-radius: 16px; border: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 16px;">
+  <div style="width: 24px; height: 24px; border: 2px solid #6366F1; border-radius: 50%; flex-shrink: 0;"></div>
+  <div style="flex: 1; min-width: 0;">
+    <p style="color: white; font-size: 16px; font-weight: 500; margin: 0 0 4px 0;">Task title</p>
+    <p style="color: #64748B; font-size: 13px; margin: 0;">Due tomorrow</p>
+  </div>
+  <div style="width: 12px; height: 12px; background: #F59E0B; border-radius: 50%; flex-shrink: 0;"></div>
+</div>
+```
+
+#### Todo Item (Checked)
+```html
+<div style="margin: 0 20px 12px; padding: 16px 20px; background: rgba(255,255,255,0.03); border-radius: 16px; display: flex; align-items: center; gap: 16px;">
+  <div style="width: 24px; height: 24px; background: #22C55E; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+    <svg width="12" height="10" viewBox="0 0 12 10" fill="none">
+      <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  <div style="flex: 1; min-width: 0;">
+    <p style="color: #64748B; font-size: 16px; font-weight: 500; margin: 0; text-decoration: line-through;">Completed task</p>
+  </div>
+</div>
+```
+
+#### Button Component (Various States)
+```html
+<button class="btn btn-primary">Primary Button</button>
+<button class="btn btn-secondary">Secondary</button>
+<button class="btn btn-outline">Outline</button>
+<button class="btn btn-ghost">Ghost</button>
 
 <!-- States: default, hover, active, disabled, loading -->
 <!-- Variants: primary, secondary, outline, ghost, danger -->
 <!-- Sizes: sm, md, lg -->
-```
-
-#### Card Component
-```html
-<div class="card">
-  <div class="card-header">Card Title</div>
-  <div class="card-body">Card content goes here</div>
-  <div class="card-footer">Card actions</div>
-</div>
 ```
 
 #### Input Component

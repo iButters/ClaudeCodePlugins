@@ -139,6 +139,35 @@ A single, self-contained HTML file with:
 }
 ```
 
+## 🎨 Pre-Designed Color Palettes
+
+Choose from professionally designed palettes that match your app's purpose:
+
+### Indigo Dreams (Default)
+**Best for:** Productivity apps, todo lists, note-taking, project management
+
+Modern, professional, calming dark theme with indigo and purple accents.
+
+### Ocean Depths
+**Best for:** Meditation apps, wellness, sleep trackers, health apps
+
+Deep blue theme with teal accents for calming, wellness-focused applications.
+
+### Midnight Rose
+**Best for:** Dating apps, social apps, beauty/fashion, lifestyle
+
+Dark theme with pink/rose accents for feminine and social applications.
+
+### Forest Night
+**Best for:** Fitness apps, outdoor apps, eco-friendly apps, finance
+
+Deep green theme with nature vibes for health and environmental apps.
+
+### Ember Glow
+**Best for:** Food/restaurant apps, cooking apps, music/entertainment
+
+Warm dark theme with orange/amber accents for engaging, creative apps.
+
 ## 🧩 Component Examples
 
 ### Button Component
