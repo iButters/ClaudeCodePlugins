@@ -54,35 +54,55 @@ Creates only the specified screens.
 
 ## What Gets Created
 
-1. **HTML File**: `[AppName]-UI-Kit.html`
-   - Interactive phone frame mockups
-   - Tab navigation between screens
-   - Design system documentation
+A modular folder structure `[AppName]-UI-Kit/` containing:
 
-2. **Screens** (based on app type):
-   - Home/Dashboard
-   - List views
-   - Detail views  
-   - Create/Edit modals
-   - Settings
-   - Empty states
-   - Loading states
+```
+[AppName]-UI-Kit/
+├── index.html              # Preview hub with phone frames
+├── tokens/
+│   ├── variables.css       # Design tokens (colors, spacing, typography)
+│   └── base.css            # CSS reset & base styles
+├── atoms/                  # Basic components
+│   ├── button/             # button.html + button.css
+│   ├── input/
+│   ├── badge/
+│   └── ...
+├── molecules/              # Combined components
+│   ├── card/
+│   ├── list-item/
+│   └── ...
+├── organisms/              # Complex sections
+│   ├── header/
+│   ├── bottom-nav/
+│   └── ...
+├── pages/                  # Complete screens
+│   ├── home/
+│   ├── settings/
+│   └── ...
+└── docs/
+    └── design-system.html
+```
 
-3. **Design System Section**:
-   - Color palette with swatches
-   - Typography scale
-   - Spacing system
-   - Component examples
-   - Effect documentation
+### Component Structure
+Each component has:
+- `[name].html` - All variants as visual specification
+- `[name].css` - BEM-scoped styles using CSS variables
+
+### Screens Created (based on app type)
+- Home/Dashboard
+- List/Detail views
+- Create/Edit screens
+- Settings
+- Empty/Loading states
 
 ## Workflow
 
-After creating the initial UI kit:
+After creating the UI kit:
 
-1. Open the HTML file in your browser to preview
-2. Request changes: "Make the buttons rounder"
-3. Add screens: "Add a notification center screen"
-4. Export: "Export the color palette as CSS variables"
+1. Open `[AppName]-UI-Kit/index.html` in your browser to preview
+2. Request changes: "Make the buttons rounder" (updates atoms/button/button.css)
+3. Add screens: "Add a notifications page" (creates pages/notifications/)
+4. Export: "Generate Blazor components" (converts to RCL structure)
 
 ## Tips
 

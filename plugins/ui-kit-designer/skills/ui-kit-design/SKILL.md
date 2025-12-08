@@ -468,3 +468,24 @@ For detailed components and templates, consult these reference documents in `ref
 - [Component Library](references/component-library.md) - Copy-paste ready HTML components including buttons, cards, inputs, navigation, modals, and more
 - [Color Palettes](references/color-palettes.md) - Pre-designed color palettes for different app types and moods (7 dark mode + 2 light mode palettes)
 - [App Templates](references/app-templates.md) - Starting templates for common app types (todo, fitness, social, e-commerce, finance, music, meditation, recipe, travel)
+
+## Modular Output Structure
+
+For projects requiring a modular folder structure with separated components (Atomic Design pattern), see the **modular-ui-kit** skill which generates:
+
+```
+[AppName]-UI-Kit/
+├── index.html              # Preview hub with phone frames
+├── tokens/                 # Design tokens (variables.css, base.css)
+├── atoms/                  # Basic components (button/, input/, badge/)
+├── molecules/              # Combined components (card/, list-item/)
+├── organisms/              # Complex sections (header/, bottom-nav/)
+├── pages/                  # Complete screens (home/, settings/)
+└── docs/                   # Design system documentation
+```
+
+This modular structure is recommended for:
+- Projects that will be converted to Blazor components
+- Team collaboration (multiple designers working in parallel)
+- Version control (cleaner git diffs)
+- Reusable component libraries

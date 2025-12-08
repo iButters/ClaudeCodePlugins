@@ -1,7 +1,7 @@
 ---
 name: Blazor Components
-description: This skill should be used when the user asks to "create Blazor components", "build a Razor Class Library", "implement component patterns", "CSS isolation in Blazor", "Blazor best practices", "three-file pattern", "atomic design for Blazor", "CssBuilder", "scoped CSS", or needs guidance on creating production-ready Blazor components with proper architecture, accessibility, and documentation.
-version: 1.0.0
+description: This skill should be used when the user asks to "create Blazor components", "build a Razor Class Library", "implement component patterns", "CSS isolation in Blazor", "Blazor best practices", "three-file pattern", "atomic design for Blazor", "CssBuilder", "scoped CSS", "component contracts", "orchestrated generation", or needs guidance on creating production-ready Blazor components with proper architecture, accessibility, and documentation.
+version: 2.0.0
 ---
 
 # Blazor Component Skill
@@ -9,6 +9,66 @@ version: 1.0.0
 ## Overview
 
 This skill enables expert-level creation of Blazor components following all industry best practices. Components are generated as part of a Razor Class Library (RCL) with proper file separation, CSS isolation, accessibility, and documentation.
+
+## Generation Architecture
+
+Component generation uses an **Orchestrator + Subagent** pattern for efficiency and quality:
+
+```
+blazor-component-generator (Opus - Orchestrator)
+├── Phase 1: Analysis & Contract Generation
+├── Phase 2: Foundation Setup
+├── Phase 3: Component Generation via Subagents
+│   ├── blazor-atom-generator (Sonnet) × N [PARALLEL]
+│   ├── blazor-molecule-generator (Sonnet) × N [PARALLEL]
+│   ├── blazor-organism-generator (Sonnet) × N [SEQUENTIAL]
+│   └── blazor-page-generator (Sonnet) × N [SEQUENTIAL]
+├── Phase 4: Services & Utilities
+└── Phase 5: Finalization
+```
+
+### Why This Architecture?
+
+1. **Cost Efficiency**: Orchestrator (Opus) maintains context once; subagents (Sonnet) are stateless "throwaway" agents
+2. **Parallelization**: Independent components (Atoms, some Molecules) generate in parallel
+3. **Quality**: Each subagent specializes in one component type
+4. **Contract System**: Ensures parent-child components interact correctly
+
+---
+
+## Component Contracts
+
+Before generation, the orchestrator extracts **Component Contracts** - JSON interfaces that define:
+
+```json
+{
+  "Button": {
+    "namespace": "MyApp.Components.Atoms",
+    "parameters": [
+      { "name": "Variant", "type": "ButtonVariant", "default": "Primary" },
+      { "name": "Size", "type": "ButtonSize", "default": "Medium" },
+      { "name": "Disabled", "type": "bool", "default": false },
+      { "name": "ChildContent", "type": "RenderFragment", "required": true }
+    ],
+    "events": [
+      { "name": "OnClick", "type": "EventCallback<MouseEventArgs>" }
+    ],
+    "cssClass": "button",
+    "variants": ["Primary", "Secondary", "Ghost", "Danger"],
+    "sizes": ["Small", "Medium", "Large"]
+  }
+}
+```
+
+### Contract Benefits
+
+- **Parent-Child Correctness**: Molecules receive Atom contracts, ensuring correct parameter usage
+- **Two-Way Binding**: Organism contracts specify `twoWay: true` for bindable properties
+- **Dependency Graph**: Contracts define generation order (atoms → molecules → organisms → pages)
+
+See [Component Contracts Reference](references/component-contracts.md) for full specification.
+
+---
 
 ## Core Competencies
 
@@ -429,8 +489,40 @@ public static class ServiceCollectionExtensions
 
 ---
 
+## Subagent Specializations
+
+| Subagent | Purpose | Model | Parallel |
+|----------|---------|-------|----------|
+| `blazor-atom-generator` | Single Atom (Button, Input, Badge) | Sonnet | Yes |
+| `blazor-molecule-generator` | Single Molecule (Card, ListItem) | Sonnet | Yes |
+| `blazor-organism-generator` | Single Organism (Modal, Header) | Sonnet | No |
+| `blazor-page-generator` | Single Page (HomePage, Settings) | Sonnet | No |
+
+### Subagent Input
+
+Each subagent receives only what it needs:
+
+```json
+{
+  "task": "generate-molecule",
+  "projectName": "MyApp",
+  "componentName": "Card",
+  "outputPath": "/path/to/output/",
+  "contract": { /* component interface */ },
+  "dependencyContracts": { /* interfaces of atoms used */ },
+  "cssSource": "/* Original CSS */",
+  "htmlSource": "<!-- Original HTML -->"
+}
+```
+
+See [Subagent Interface Reference](references/subagent-interface.md) for complete specification.
+
+---
+
 ## Related References
 
 For detailed information, consult these reference documents in `references/`:
 
 - [Blazor Best Practices](references/blazor-best-practices.md) - Comprehensive guide to project structure, file separation, naming conventions, parameters, events, CSS isolation, accessibility, performance, and testing
+- [Component Contracts](references/component-contracts.md) - Contract format for component interfaces, parameters, events, and dependencies
+- [Subagent Interface](references/subagent-interface.md) - Input/output specification for generator subagents

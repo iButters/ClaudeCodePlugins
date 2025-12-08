@@ -1,13 +1,13 @@
 # UI Kit Designer Plugin
 
-**Version:** 1.0.0
+**Version:** 2.0.0
 **License:** MIT
 
-A powerful plugin for iterative front-end design that generates beautiful, interactive UI Kit HTML files for mobile and web applications. Includes agents for design creation, review, and Blazor component generation.
+A powerful plugin for iterative front-end design that generates beautiful, interactive UI Kit HTML files for mobile and web applications. Features orchestrated Blazor component generation with parallel subagents for efficient RCL creation.
 
 ## Overview
 
-This plugin enables designers and developers to rapidly prototype UI designs through an iterative, conversational workflow. It creates standalone HTML files that showcase all screens, components, and design tokens of your application.
+This plugin enables designers and developers to rapidly prototype UI designs through an iterative, conversational workflow. It generates a modular folder structure following Atomic Design principles, with separated components (atoms, molecules, organisms) and CSS files that directly map to Blazor component libraries.
 
 ## Features
 
@@ -18,6 +18,7 @@ This plugin enables designers and developers to rapidly prototype UI designs thr
 - 📐 **Design System Generation** - Colors, typography, spacing, effects
 - 🔄 **Version Control** - Track design iterations
 - 📋 **Export Ready** - Copy CSS/components to your project
+- 📁 **Modular Output** - Atomic Design folder structure (atoms, molecules, organisms)
 
 ## Agents
 
@@ -99,21 +100,31 @@ Agent: Creates MicroTodo.Components/ with all screens and components
 ```
 1. Create UI Kit
    User: "Create a todo app UI kit with home, add task, and settings screens"
-   → Generates MicroTodo-UI-Kit.html
+   → Generates MicroTodo-UI-Kit/ folder:
+     - tokens/variables.css, base.css
+     - atoms/button/, input/, checkbox/
+     - molecules/card/, todo-item/
+     - organisms/header/, bottom-nav/
+     - pages/home/, settings/
+     - index.html (preview hub)
 
 2. Iterate on Design
-   User: "Make the cards more glassmorphic and add subtle animations"
-   → Updates design with refined styles
+   User: "Make the cards more glassmorphic"
+   → Updates molecules/card/card.css
 
-3. Review for Quality
+3. Refine Components
+   User: "The buttons need rounder corners"
+   → Updates atoms/button/button.css
+
+4. Review for Quality
    User: "Review this UI kit"
    → Gets accessibility and consistency feedback
 
-4. Generate Blazor Code
+5. Generate Blazor Code
    User: "Convert to Blazor components"
    → Creates MicroTodo.Components/ RCL with:
      - Components/Atoms/Button, Input, Badge...
-     - Components/Molecules/Card, ListItem...
+     - Components/Molecules/Card, TodoItem...
      - Components/Organisms/Header, Modal...
      - Pages/HomePage, SettingsPage...
      - Full design tokens, services, models
@@ -128,45 +139,83 @@ The generated UI kits follow these principles:
 - **Component Consistency** - Unified design language
 - **Developer Friendly** - Clean, reusable code
 
-## File Structure
+## Output Structure
+
+The ui-kit-designer generates a **modular folder structure** following Atomic Design principles:
 
 ```
-output/
-├── MyApp-UI-Kit.html          # Main UI kit file
-├── MyApp-UI-Kit-v2.html       # Version 2
-├── exports/
-│   ├── colors.css             # CSS variables
-│   ├── components.css         # Component styles
-│   └── design-tokens.json     # Design tokens
-├── assets/
-│   └── icons/                 # SVG icons
-└── MyApp.Components/          # Generated Blazor RCL
-    ├── MyApp.Components.csproj
-    ├── _Imports.razor
-    ├── CssBuilder.cs
-    ├── wwwroot/
-    │   └── css/
-    │       ├── variables.css
-    │       └── base.css
-    ├── Components/
-    │   ├── Atoms/
-    │   │   ├── Button/
-    │   │   ├── Input/
-    │   │   ├── Badge/
-    │   │   └── ...
-    │   ├── Molecules/
-    │   │   ├── Card/
-    │   │   ├── ListItem/
-    │   │   └── ...
-    │   ├── Organisms/
-    │   │   ├── Header/
-    │   │   ├── Modal/
-    │   │   └── ...
-    │   └── Templates/
-    ├── Pages/
-    ├── Services/
-    ├── Models/
-    └── Extensions/
+MyApp-UI-Kit/
+├── index.html                     # Preview hub with phone frames
+├── tokens/
+│   ├── variables.css              # Design tokens (colors, spacing, typography)
+│   └── base.css                   # CSS reset & base styles
+├── atoms/                         # Basic elements
+│   ├── button/
+│   │   ├── button.html            # All button variants
+│   │   └── button.css             # BEM-scoped styles
+│   ├── input/
+│   ├── badge/
+│   ├── avatar/
+│   ├── checkbox/
+│   ├── toggle/
+│   └── ...
+├── molecules/                     # Combined components
+│   ├── card/
+│   ├── list-item/
+│   ├── search-bar/
+│   ├── form-field/
+│   └── ...
+├── organisms/                     # Complex sections
+│   ├── header/
+│   ├── bottom-nav/
+│   ├── modal/
+│   └── ...
+├── pages/                         # Complete screens
+│   ├── home/
+│   ├── settings/
+│   ├── detail/
+│   └── empty-state/
+└── docs/
+    └── design-system.html         # Design system documentation
+```
+
+### Component File Format
+
+Each component contains **all variants** as a visual specification:
+
+```html
+<!--
+  Button Component
+  ================
+  Block: .btn
+  Elements: .btn__text, .btn__icon
+  Modifiers: --primary, --secondary, --ghost, --small, --large
+  States: :disabled, .btn--loading
+-->
+<section class="component-variants">...</section>
+<section class="component-sizes">...</section>
+<section class="component-states">...</section>
+```
+
+This format enables automatic enum derivation when converting to Blazor components.
+
+### Generated Blazor RCL
+
+When exported to Blazor, the structure mirrors the UI kit:
+
+```
+MyApp.Components/
+├── MyApp.Components.csproj
+├── wwwroot/css/
+│   ├── variables.css
+│   └── base.css
+├── Components/
+│   ├── Atoms/Button/, Input/, Badge/...
+│   ├── Molecules/Card/, ListItem/...
+│   └── Organisms/Header/, Modal/...
+├── Pages/
+├── Services/
+└── Models/
 ```
 
 ## Plugin Structure
@@ -191,6 +240,12 @@ ui-kit-designer/
 │   │       ├── component-library.md
 │   │       ├── color-palettes.md
 │   │       └── app-templates.md
+│   ├── modular-ui-kit/
+│   │   ├── SKILL.md             # Modular folder structure skill
+│   │   └── references/
+│   │       ├── folder-structure.md
+│   │       ├── component-templates.md
+│   │       └── index-template.md
 │   └── blazor-components/
 │       ├── SKILL.md
 │       └── references/          # Blazor references

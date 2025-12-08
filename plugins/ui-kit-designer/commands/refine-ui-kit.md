@@ -86,12 +86,28 @@ Make targeted improvements to an existing UI kit based on your feedback.
 /ui-kit refine "The glassmorphism effect is too strong, tone it down"
 ```
 
+## What Gets Updated
+
+With the modular UI kit structure, refinements target specific files:
+
+| Feedback Type | Files Updated |
+|--------------|---------------|
+| Button styling | `atoms/button/button.css` |
+| Card layout | `molecules/card/card.css` |
+| Color changes | `tokens/variables.css` |
+| Typography | `tokens/variables.css`, `tokens/base.css` |
+| Screen layout | `pages/[screen]/[screen].css` |
+| New component | Creates new folder in `atoms/`, `molecules/`, or `organisms/` |
+| New screen | Creates new folder in `pages/` |
+
+The `index.html` automatically reflects changes since it links all CSS files.
+
 ## Workflow
 
-1. Review current UI kit in browser
+1. Open `[AppName]-UI-Kit/index.html` in browser
 2. Note specific improvements needed
 3. Run refine command with feedback
-4. Review changes
+4. Refresh browser to see changes
 5. Repeat until satisfied
 
 ## Tips
