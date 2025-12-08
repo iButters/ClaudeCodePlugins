@@ -1,0 +1,17 @@
+{
+  "name": "ui-kit-generator",
+  "version": "1.0.0",
+  "description": "Interaktive Erstellung von UI-Kits nach Atomic Design Prinzipien mit geführter Konversation und automatisierter Komponenten-Generierung",
+  "author": {
+    "name": "Claude Code Plugin"
+  },
+  "keywords": [
+    "ui-kit",
+    "design-system",
+    "atomic-design",
+    "components",
+    "react",
+    "vue",
+    "tailwind"
+  ]
+}
