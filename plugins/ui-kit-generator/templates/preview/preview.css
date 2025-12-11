@@ -1,0 +1,339 @@
+/* ============================================
+   UI-Kit Preview Styles
+   ============================================ */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-family-primary, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
+  background: var(--gradient-background-primary, linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%));
+  color: var(--text-primary, rgba(255, 255, 255, 0.95));
+  overflow: hidden;
+}
+
+/* Glassmorphism background effect */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(217, 70, 239, 0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.15) 0%, transparent 50%);
+  opacity: 0.5;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ============================================
+   App Layout
+   ============================================ */
+
+.preview-app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ============================================
+   Category Navigation
+   ============================================ */
+
+.category-nav {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.75rem 1.5rem;
+  flex-shrink: 0;
+}
+
+.category-nav__list {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.category-nav__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.category-nav__btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.category-nav__btn.active {
+  background: rgba(139, 92, 246, 0.2);
+  border-color: rgba(139, 92, 246, 0.5);
+  color: white;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+}
+
+.category-nav__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 0.25rem;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.category-nav__btn.active .category-nav__count {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* ============================================
+   Component Navigation
+   ============================================ */
+
+.component-nav {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 0.5rem 1.5rem;
+  flex-shrink: 0;
+  overflow-x: auto;
+}
+
+.component-nav__list {
+  display: flex;
+  gap: 0.25rem;
+  list-style: none;
+  justify-content: center;
+}
+
+.component-nav__btn {
+  padding: 0.5rem 0.75rem;
+  font-family: inherit;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.component-nav__btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.component-nav__btn.active {
+  background: rgba(139, 92, 246, 0.15);
+  border-color: rgba(139, 92, 246, 0.4);
+  color: rgba(196, 181, 253, 1);
+}
+
+/* ============================================
+   Preview Main Area
+   ============================================ */
+
+.preview-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 1rem;
+}
+
+.preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.5rem 1rem;
+  flex-shrink: 0;
+}
+
+.preview-header__title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.preview-header__actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.preview-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.preview-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+/* ============================================
+   Preview Frame
+   ============================================ */
+
+.preview-frame-container {
+  flex: 1;
+  min-height: 0;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.preview-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+}
+
+/* ============================================
+   Info Panel
+   ============================================ */
+
+.info-panel {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  width: 200px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  font-size: 0.75rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.info-panel__header {
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.info-panel__header h2 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.info-panel__content {
+  padding: 0.75rem 1rem;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.25rem 0;
+}
+
+.info-item__label {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.info-item__value {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+
+@media (max-width: 768px) {
+  .category-nav {
+    padding: 0.5rem 1rem;
+  }
+
+  .category-nav__btn {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .component-nav {
+    justify-content: flex-start;
+  }
+
+  .component-nav__list {
+    justify-content: flex-start;
+  }
+
+  .info-panel {
+    display: none;
+  }
+
+  .preview-main {
+    padding: 0.5rem;
+  }
+}
+
+/* ============================================
+   Scrollbar Styling
+   ============================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
