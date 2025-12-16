@@ -1,5 +1,10 @@
 {
   "name": "spec-driven-workflow",
-  "version": "1.0.0",
-  "description": "Spec-Driven Development with EARS notation - transforms feature ideas into structured, testable requirements"
+  "version": "2.2.2",
+  "description": "Structured development workflow with requirements -> design -> tasks -> implementation using EARS notation",
+  "author": {
+    "name": "iButters"
+  },
+  "keywords": ["workflow", "specification", "ears", "requirements", "design", "tasks", "implementation"],
+  "license": "MIT"
 }

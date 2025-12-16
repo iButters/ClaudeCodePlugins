@@ -1,19 +1,18 @@
 {
   "name": "llm-prompt-optimizer",
   "version": "1.0.0",
-  "description": "A comprehensive prompt engineering plugin that optimizes prompts for specific LLM models (Claude Opus/Sonnet/Haiku 4.5, GPT 5.1/Codex, Gemini Pro 3.0) and recommends models for specific requirements via interactive dialog.",
+  "description": "Comprehensive prompt engineering plugin for optimizing, analyzing, and creating prompts across multiple LLM models (Claude, GPT, Gemini)",
   "author": {
-    "name": "Claude Code Plugin Developer"
+    "name": "iButters"
   },
-  "license": "MIT",
   "keywords": [
-    "prompt-engineering",
-    "llm-optimization",
-    "model-selection",
+    "prompt",
+    "optimization",
+    "llm",
     "claude",
     "gpt",
     "gemini",
-    "prompt-optimization",
-    "ai-prompts"
-  ]
+    "prompt-engineering"
+  ],
+  "license": "MIT"
 }

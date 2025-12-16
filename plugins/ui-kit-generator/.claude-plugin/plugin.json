@@ -1,17 +1,20 @@
 {
   "name": "ui-kit-generator",
   "version": "1.1.0",
-  "description": "Interaktive Erstellung von UI-Kits nach Atomic Design Prinzipien mit geführter Konversation und automatisierter Komponenten-Generierung",
+  "description": "Interactive UI-Kit generator using Atomic Design principles (Atoms → Molecules → Organisms → Templates → Pages). Features intelligent planning agent, parallel component generation via subagents, and design system creation with automatic dependency resolution.",
   "author": {
-    "name": "Claude Code Plugin"
+    "name": "iButters"
   },
   "keywords": [
-    "ui-kit",
-    "design-system",
+    "ui",
+    "design",
     "atomic-design",
     "components",
-    "react",
-    "vue",
-    "tailwind"
-  ]
+    "ui-kit",
+    "front-end",
+    "design-system",
+    "parallel-generation",
+    "blazor"
+  ],
+  "license": "MIT"
 }

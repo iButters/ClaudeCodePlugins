@@ -1,0 +1,10 @@
+{
+  "name": "plugin-dev",
+  "version": "0.1.0",
+  "description": "Comprehensive toolkit for developing Claude Code plugins with guidance on hooks, MCP integration, plugin structure, commands, agents, and skills",
+  "author": {
+    "name": "Daisy Hollman"
+  },
+  "keywords": ["plugin", "development", "hooks", "mcp", "commands", "agents", "skills", "toolkit"],
+  "license": "MIT"
+}
