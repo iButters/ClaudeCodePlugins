@@ -1,6 +1,6 @@
 {
   "name": "ui-kit-generator",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Interactive UI-Kit generator using Atomic Design principles (Atoms → Molecules → Organisms → Templates → Pages). Features intelligent planning agent, parallel component generation via subagents, and design system creation with automatic dependency resolution.",
   "author": {
     "name": "iButters"

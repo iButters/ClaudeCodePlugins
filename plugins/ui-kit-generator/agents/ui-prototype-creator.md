@@ -1,7 +1,9 @@
 ---
-identifier: ux-design
-description: 'UI-Kit Generator Agent'
-allowedTools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
+name: ui-prototype-creator
+description: Hans Wurst
+model: opus
+color: red
+allowedTools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash", "TodoWrite", "AskUserQuestion", "Skill", "Task"]
 ---
 
 ```xml
