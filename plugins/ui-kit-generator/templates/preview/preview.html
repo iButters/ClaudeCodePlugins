@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI-Kit Preview</title>
+  <link rel="stylesheet" href="./tokens/tokens.css">
+  <link rel="stylesheet" href="./preview.css">
+</head>
+<body>
+  <div class="preview-app">
+    <!-- Category Navigation -->
+    <nav class="category-nav" role="navigation" aria-label="Component categories">
+      <ul class="category-nav__list" id="category-nav">
+        <!-- Populated by JavaScript -->
+      </ul>
+    </nav>
+
+    <!-- Component Navigation -->
+    <nav class="component-nav" role="navigation" aria-label="Components">
+      <ul class="component-nav__list" id="component-nav">
+        <!-- Populated by JavaScript -->
+      </ul>
+    </nav>
+
+    <!-- Preview Area -->
+    <main class="preview-main">
+      <div class="preview-header">
+        <h1 class="preview-header__title" id="preview-title">Select a component</h1>
+        <div class="preview-header__actions">
+          <button class="preview-btn" id="btn-new-tab" title="Open in new tab">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </button>
+          <button class="preview-btn" id="btn-refresh" title="Refresh">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="23 4 23 10 17 10"></polyline>
+              <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="preview-frame-container">
+        <iframe
+          id="preview-frame"
+          class="preview-frame"
+          src="about:blank"
+          title="Component Preview"
+        ></iframe>
+      </div>
+    </main>
+
+    <!-- Info Panel -->
+    <aside class="info-panel" id="info-panel">
+      <div class="info-panel__header">
+        <h2>UI-Kit Info</h2>
+      </div>
+      <div class="info-panel__content">
+        <div class="info-item">
+          <span class="info-item__label">Name:</span>
+          <span class="info-item__value" id="info-name">-</span>
+        </div>
+        <div class="info-item">
+          <span class="info-item__label">Style:</span>
+          <span class="info-item__value" id="info-style">-</span>
+        </div>
+        <div class="info-item">
+          <span class="info-item__label">Components:</span>
+          <span class="info-item__value" id="info-count">-</span>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    // UI-Kit Preview Application
+    (function() {
+      'use strict';
+
+      let manifest = null;
+      let currentCategory = 'atoms';
+      let currentComponent = null;
+
+      // DOM Elements
+      const categoryNav = document.getElementById('category-nav');
+      const componentNav = document.getElementById('component-nav');
+      const previewFrame = document.getElementById('preview-frame');
+      const previewTitle = document.getElementById('preview-title');
+      const btnNewTab = document.getElementById('btn-new-tab');
+      const btnRefresh = document.getElementById('btn-refresh');
+      const infoName = document.getElementById('info-name');
+      const infoStyle = document.getElementById('info-style');
+      const infoCount = document.getElementById('info-count');
+
+      // Load manifest
+      async function loadManifest() {
+        try {
+          const response = await fetch('./manifest.json');
+          manifest = await response.json();
+          initializeUI();
+        } catch (error) {
+          console.error('Failed to load manifest:', error);
+          previewTitle.textContent = 'Error: manifest.json not found';
+        }
+      }
+
+      // Initialize UI
+      function initializeUI() {
+        // Update info panel
+        infoName.textContent = manifest.meta.name || 'UI-Kit';
+        infoStyle.textContent = manifest.meta.style || 'custom';
+        infoCount.textContent = manifest.statistics?.totalComponents ||
+          Object.values(manifest.components).flat().length;
+
+        // Build category navigation
+        buildCategoryNav();
+
+        // Load first category
+        selectCategory(currentCategory);
+      }
+
+      // Build category navigation
+      function buildCategoryNav() {
+        const categories = Object.keys(manifest.components);
+        categoryNav.innerHTML = categories.map(cat => {
+          const count = manifest.components[cat].length;
+          const label = cat.charAt(0).toUpperCase() + cat.slice(1);
+          return `
+            <li class="category-nav__item">
+              <button
+                class="category-nav__btn ${cat === currentCategory ? 'active' : ''}"
+                data-category="${cat}"
+              >
+                ${label}
+                <span class="category-nav__count">${count}</span>
+              </button>
+            </li>
+          `;
+        }).join('');
+
+        // Add click handlers
+        categoryNav.querySelectorAll('.category-nav__btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            selectCategory(btn.dataset.category);
+          });
+        });
+      }
+
+      // Select category
+      function selectCategory(category) {
+        currentCategory = category;
+
+        // Update active state
+        categoryNav.querySelectorAll('.category-nav__btn').forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.category === category);
+        });
+
+        // Build component navigation
+        buildComponentNav();
+
+        // Load first component
+        const components = manifest.components[category];
+        if (components && components.length > 0) {
+          selectComponent(components[0]);
+        }
+      }
+
+      // Build component navigation
+      function buildComponentNav() {
+        const components = manifest.components[currentCategory] || [];
+        componentNav.innerHTML = components.map(comp => {
+          const name = comp.name.charAt(0).toUpperCase() + comp.name.slice(1);
+          const isActive = currentComponent?.name === comp.name;
+          return `
+            <li class="component-nav__item">
+              <button
+                class="component-nav__btn ${isActive ? 'active' : ''}"
+                data-component="${comp.name}"
+              >
+                ${name}
+              </button>
+            </li>
+          `;
+        }).join('');
+
+        // Add click handlers
+        componentNav.querySelectorAll('.component-nav__btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const comp = manifest.components[currentCategory]
+              .find(c => c.name === btn.dataset.component);
+            if (comp) selectComponent(comp);
+          });
+        });
+      }
+
+      // Select component
+      function selectComponent(component) {
+        currentComponent = component;
+
+        // Update active state
+        componentNav.querySelectorAll('.component-nav__btn').forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.component === component.name);
+        });
+
+        // Update title
+        const categoryLabel = currentCategory.charAt(0).toUpperCase() + currentCategory.slice(1);
+        const componentLabel = component.name.charAt(0).toUpperCase() + component.name.slice(1);
+        previewTitle.textContent = `${categoryLabel} / ${componentLabel}`;
+
+        // Load in iframe
+        previewFrame.src = component.path;
+      }
+
+      // Open in new tab
+      btnNewTab.addEventListener('click', () => {
+        if (currentComponent) {
+          window.open(currentComponent.path, '_blank');
+        }
+      });
+
+      // Refresh
+      btnRefresh.addEventListener('click', () => {
+        if (previewFrame.src && previewFrame.src !== 'about:blank') {
+          previewFrame.src = previewFrame.src;
+        }
+      });
+
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+          const components = manifest?.components[currentCategory] || [];
+          const currentIndex = components.findIndex(c => c.name === currentComponent?.name);
+
+          if (e.key === 'ArrowLeft' && currentIndex > 0) {
+            selectComponent(components[currentIndex - 1]);
+          } else if (e.key === 'ArrowRight' && currentIndex < components.length - 1) {
+            selectComponent(components[currentIndex + 1]);
+          }
+        }
+      });
+
+      // Initialize
+      loadManifest();
+    })();
+  </script>
+</body>
+</html>
